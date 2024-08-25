@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+  devise_for :users, 
+              defaults:    { format: :json },
+              controllers: {
+                registrations: 'registrations',
+                passwords: 'passwords',
+                sessions: 'sessions'
+  }
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   mount Base, at: "/#{Base::PREFIX}"
