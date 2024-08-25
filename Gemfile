@@ -67,7 +67,7 @@ end
 gem 'grape'
 gem 'grape-route-helpers'
 gem 'grape-entity', '~> 1.0', '>= 1.0.1'
-gem 'dotenv-rails', '~> 2.1', '>= 2.1.1'
+gem 'dotenv-rails', '~> 3.1'
 gem 'devise', '~> 4.9', '>= 4.9.4'
 gem 'devise-jwt'
 gem 'jquery-rails'
