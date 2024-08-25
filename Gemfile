@@ -43,11 +43,16 @@ group :development, :test do
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
+
+  gem "pry", "~> 0.14.2"
+  gem "faker", "~> 3.4"
 end
 
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
+  gem 'letter_opener'
+  gem 'grape-swagger'
 
   # Highlight the fine-grained location where an error occurred [https://github.com/ruby/error_highlight]
   gem "error_highlight", ">= 0.4.0", platforms: [:ruby]
@@ -58,3 +63,19 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+gem 'grape'
+gem 'grape-route-helpers'
+gem 'grape-entity', '~> 1.0', '>= 1.0.1'
+gem 'dotenv-rails', '~> 2.1', '>= 2.1.1'
+gem 'devise', '~> 4.9', '>= 4.9.4'
+gem 'devise-jwt'
+gem 'jquery-rails'
+gem 'slim', '~> 3.0', '>= 3.0.6'
+gem 'bootstrap', '~> 5.2', '>= 5.2.3'
+gem 'sass-rails'
+gem 'will_paginate', '~> 4.0'
+gem 'jwt'
+gem 'faraday', '~> 2.9'
+gem 'sidekiq', '~> 7.1', '>= 7.1.2'
+gem 'sidekiq-scheduler'
