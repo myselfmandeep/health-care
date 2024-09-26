@@ -1,0 +1,60 @@
+.row.edit-profile-row {
+  display: flex;
+  justify-content: center;
+  .card-body.profile-container {
+    background: #ededed;
+    border: 1px solid;
+    padding: 0;
+  
+    .header {
+      background: black;
+      text-align: center;
+      color: white;
+      padding: 6px;
+      
+      .heading {
+        font-size: 22px;
+        font-family: serif;
+      }
+    }
+  
+    .details {
+      display: flex;    
+      justify-content: space-around;
+      margin: 12px 0 0 12px;
+
+      .profile-pic {
+        // display: flex;
+        // justify-content: space-around;
+
+        img {
+          height: 150px;
+        }
+      }
+
+      .user-info {
+        
+      }
+    }
+  
+    .navigation-btns {
+      display: flex;
+      justify-content: right;
+      align-items: center;
+      margin: 0px 12px 12px 0;
+  
+      .pf-btn {
+        background: black;
+        border: none;
+        padding: 8px;
+        font-size: 14px;
+        text-decoration: none;
+        color: white;
+      }
+
+      .pf-nav-btn {
+        margin: 0 8px;
+      }
+    }
+  }
+}

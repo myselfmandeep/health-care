@@ -1,0 +1,40 @@
+h1 Appointments 
+
+.row.m-3
+  .col-3
+    input#doctor-search-field.form-control type="text" placeholder="Search doctor by name"
+  .col-2
+    #reset-filter-button.btn.btn-secondary Reset
+
+table.table
+  thead
+    tr
+      th scope="col" #
+      th scope="col" Timeslot
+      th scope="col" Status
+      th scope="col" Doctor
+      th scope="col" Date  
+      th scope="col" See Details 
+  tbody 
+    - @appointments.each_with_index do |appointment, index|
+      tr data-doctor-name="#{appointment.doctor_full_name}"
+        td scope="col" = "#{index+1}"
+        td = appointment.timeslot
+        td = appointment.status
+        td = appointment.doctor_full_name
+        td = appointment.date 
+        td 
+          .btn.btn-primary.detail-btn data-appointment-id="#{appointment.id}"
+            | Details 
+          .patient-details
+            .patient-appointment-detail id="appointment-detail-#{appointment.id}"
+              .card
+                .card-body
+                  h6 Symptoms 
+                  p = assign_NA(appointment.symptoms)
+                  h6 Medical History
+                  p = assign_NA(appointment.medical_history)
+                  .btn.btn-danger.close-btn Close
+
+= will_paginate @appointments
+= javascript_include_tag "patients/appointments"

@@ -1,0 +1,49 @@
+nav.nav-bar 
+  .nav-partitions 
+    .nav-item.home
+      = link_to "Home", root_path, class: "nav-link"
+    - unless current_user.try(:doctor?)
+      .nav-item.hospitals 
+        = link_to "Hospitals", hospitals_path, class: "nav-link"
+    .nav-item.specialization 
+      = link_to "Specializations", specializations_path, class: "nav-link"
+    - if user_signed_in?
+      .nav-item.nav-appts
+        = link_to "Appointments", appointments_path , class: "nav-link"
+      - if current_user.super_admin?
+        .nav-item.dashboard 
+          = link_to "Dashboard", su_dashboard_path , class: "nav-link"
+      - if current_user.doctor?
+        .nav-item.dashboard 
+          = link_to "Dashboard", dashboard_doctor_path(current_user.doctor_profile) , class: "nav-link"
+    
+  .nav-partitions 
+    - if user_signed_in?
+      .nav-item.chats
+        a.nav-icons href="#{chats_path}"
+          i.fa-brands.fa-rocketchat.nav-link
+      .nav-item.nav-link.notifications.nav-icons
+        i.fa-solid.fa-bell.nav-link.notifications-nav-bar data-visible="false" data-user-id="#{current_user.id}"
+          .notifications-modal
+            .parent-notification-container.my-modal 
+              = render partial: "notifications/listing"
+      .nav-item.nav-link.logged-in-type
+        = user_signed_in? ? "#{current_user.full_name.try(:capitalize)}" : "Log In"
+        .profile-parent-modal 
+          .profile-modal 
+            .user-details
+              - if user_signed_in?
+                p.profile-item = "Welcome #{current_user.full_name.try(:capitalize)}"
+                = link_to "See Profile", patient_path(current_user), class: "see-profile default-btn" 
+            .session-actions 
+                = button_to "Logout", destroy_user_session_path, method: :delete, class: "profile-item logout-button default-btn"
+    
+    - else 
+      .nav-item              
+        = link_to "Sign in", new_user_session_path, class: "nav-link"
+      .nav-item              
+        = link_to "Sign up", new_user_registration_path, class: "nav-link"
+
+        
+= javascript_include_tag "general/nav_bar", type: :module
+= javascript_include_tag "channels/index", type: :module

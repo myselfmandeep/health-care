@@ -1,0 +1,61 @@
+
+.container-fluid.mt-3
+  h4 Users 
+  .row
+    .col-7.d-flex
+      input#username.form-control placeholder="search for username"
+      input#full-name.form-control placeholder="search for name"
+      input#email.form-control placeholder="search for email"
+      input#contact.form-control placeholder="search for contact"
+    .col-4.d-flex
+      select#roles.form-control
+        option value=""
+          | Select by Role
+        - User::ROLES.each do |role|
+          option value=role
+            = role.humanize
+      select#states.form-control
+        option value=""
+          | Select by account state
+        - User::STATES.each do |role|
+          option value=role
+            = role.humanize
+      select#genders.form-control
+        option value=""
+          | Select by gender
+        - User::GENDERS.each do |gender|
+          option value=gender
+            = gender.humanize
+    .col-1 
+      button#clear-filter-button Clear Filter
+
+  .row
+    table.table.table-hover
+      thead
+        tr
+          th scope="col" #
+          th scope="col" Name 
+          th scope="col" Email
+          th scope="col" Username
+          th scope="col" Role
+          th scope="col" Contact
+          th scope="col" Gender
+          th scope="col" DOB
+          th scope="col" Account Status
+          th scope="col" Member since
+      tbody
+        tbody
+          - User.order("role DESC, full_name ASC").each_with_index do |user, index|
+            tr data-user-full-name="#{user.full_name}" data-user-email="#{user.email}" data-user-username="#{user.username}" data-user-role="#{user.role}" data-user-contact="#{user.contact}" data-user-gender="#{user.gender}" data-user-dob="#{user.date_of_birth}" data-user-state="#{user.state}"
+              th = "#{index+1}"
+              td = user.full_name
+              td = user.email
+              td = assign_NA(user.username)
+              td = user.doctor? ? (link_to "#{user.role}", dashboard_doctor_path(user)) : user.role
+              td = assign_NA(user.contact)
+              td = user.gender
+              td = user.date_of_birth
+              td = user.state
+              td = since_time_v1(user.created_at)
+
+= javascript_include_tag "super_admin/dashboards/base"

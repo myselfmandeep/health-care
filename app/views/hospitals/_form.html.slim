@@ -1,0 +1,28 @@
+.container
+  .row 
+    .new-hospital-form.col-8 
+      h1.heading-all-over = heading 
+      .create-hospital 
+        label for="hospital-name" Hospital Name: 
+        input#hospital-name.form-control type="text" value="#{(defined? hospital) ? hospital.try(:name) : nil}" placeholder="hospital name"
+
+        - defined? hospital 
+          span#hospital-id data-hospital-id="#{hospital.try(:id)}"
+
+      p.add-dep 
+        b Add Departments: 
+      .specialization-select-box.mt-3
+        .specialization-list.select-source
+          / - @dep_hospital_not_have.each do |spec|
+          - specializations.each do |spec|
+            .specialization data-specialization-id="#{spec.id}" = spec.name
+          / .specialization Specialization-2
+
+        .add-remove-btns
+          .spec-btn#add-specialization Add 
+          .spec-btn#remove-specialization Remove
+        .specialization-list.select-consumer 
+          / .specialization Specialization-3
+
+      .sumit-btn-box 
+        .btn.btn-primary.mt-4#new-hospital-submit = btn_text 

@@ -1,0 +1,14 @@
+.pagination-container 
+  = will_paginate resource, class: "pagination"
+
+  .pagination-options 
+    - if resource.present? && resource.total_pages > 1
+      lable for="per_page" Record per page:
+      select.form-control#per_page name="per_page"
+
+        - entries = params[:per_page] || resource.entries.count
+        option value="#{entries}" = "No. of Records"
+        - [10, 50, 100].each do |items_per_page|
+          option value="#{items_per_page}" = items_per_page
+
+= javascript_include_tag "general/pagination", type: :module

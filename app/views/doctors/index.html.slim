@@ -1,0 +1,35 @@
+.container-fluid#doctor-portfolio
+  
+  .row#doctor-portfolios
+    .row.doc-home-filters
+      .col-8.d-flex.m-2
+        select#hospital-name.form-control.m-2 style="display:#{current_user.try(:doctor?) ? "none" : "" }"
+          option value="" Select Hospital
+          - Hospital.order(:name).each do |hospital|
+            option value="#{hospital.name}" selected=(params[:hospital] == hospital.name)
+              = hospital.name
+
+        select#specialization-name.form-control.m-2
+          option value="" Select Specialization
+          - Specialization.order(:name).each do |specialization|
+            option value="#{specialization.name}" = specialization.name
+
+        input#search-doctor-name.form-control.m-2 placeholder="Search by doctor name"
+        #search-button.btn.btn.btn-primary.m-2 Search
+
+        #filter-reset-btn.btn.btn-secondary.m-2 Reset
+
+    -if @doctors.present?
+      .container 
+        .row[style="display:flex;justify-content:center;"]
+          - @doctors.each do |doctor| 
+            = render partial: "/doctors/listing", locals: {doctor: doctor} 
+      
+      = render partial: "shared/pagination", locals: { resource: @doctors }
+    - else 
+      h4.no-doc-avail No Doctor Found
+
+= render partial: "shared/spinner", locals: {dom_id: "search-button"}
+
+= javascript_include_tag "doctors/listing", type: :module
+= javascript_include_tag "doctors/index", type: :module

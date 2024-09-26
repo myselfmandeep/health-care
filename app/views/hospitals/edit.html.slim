@@ -1,0 +1,5 @@
+
+span#hospital-id data-hospital-id="#{@hospital.id}"
+= render partial: "hospitals/form", locals: {hospital: @hospital, specializations: @specializations, btn_text: "Edit Hospital", heading: "Edit hospital"}
+
+= javascript_include_tag "super_admin/directors/hospitals/edit_hospital", type: :module

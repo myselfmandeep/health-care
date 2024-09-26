@@ -1,0 +1,9 @@
+.notifications-close-btn Close
+- if @notifications.present?
+  - @notifications.each do |notification|
+    .single-notification 
+      p = notification.content
+- else
+  .single-notification
+    p you have no notifications
+

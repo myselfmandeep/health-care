@@ -1,0 +1,71 @@
+
+.container.mt-3
+  h4 Requested Appointments 
+  .row 
+    .col-8 
+      table.table
+        thead
+          tr
+            th scope="col" #
+            th scope="col" Patient Name 
+            = show_doctor_th
+            th scope="col" Timeslot
+            th scope="col" Date
+            th scope="col" Status
+            th scope="col" Action 
+        tbody
+          - @appointments.each_with_index do |appointment, index|
+            tr.table-rows id="appointment-#{appointment.id}" class="#{table_row_color(appointment)}"
+              th scope="row" = "#{index+1}"
+              td = appointment.patient.full_name
+              = show_doctor_td(appointment)
+              td = appointment.timeslot
+              td = appointment.date
+              / td 
+              td id="appointment-status-#{appointment.id}" class="#{appointment.status}"
+                = appointment.status
+              td 
+                - unless appointment.rejected? || is_patient?
+                  div.action-btn id="action-btn-#{appointment.id}" 
+                    .btn.btn-warning data-appointment-id="#{appointment.id}"
+                      | Action
+                  .card.appointment-detail id="appointment-detail-#{appointment.id}"
+                    .card-header
+                      = appointment.patient_full_name
+                    table.table
+                      thead
+                        tr
+                          th scope="col" DOB
+                          th scope="col" Gender 
+                          th scope="col" Email 
+                          th scope="col" Phone 
+                      tbody
+                        tr
+                          td = appointment.patient.date_of_birth
+                          td = appointment.patient.gender
+                          td = appointment.patient.email
+                          td 293892382
+                    .card-body
+                      .symptoms
+                        h5 Symptoms
+                        p = appointment.symptoms
+                      .medical-history 
+                        h5 Medical History
+                        p = appointment.medical_history
+                      .col-8 
+                        .m-1.btn.btn-success#approve-btn data-appointment-id="#{appointment.id}" data-appointment-status="confirmed"
+                          | Approve
+                        .m-1.btn.btn-danger#reject-btn data-appointment-id="#{appointment.id}" data-appointment-status="rejected"
+                          | Reject
+                        .m-1.btn.btn-primary#cancel-btn
+                          | Back
+                - else  
+                    .btn.btn-warning
+                      | N/A
+
+  = will_paginate @appointments
+  = render "doctors/appointments/back_to_appointment"
+
+
+                
+= javascript_include_tag "doctors/appointments", type: :module

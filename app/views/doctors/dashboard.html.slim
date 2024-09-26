@@ -1,0 +1,158 @@
+/ / h1 dashboard
+/ / p = @doctor.doctor_full_name
+
+
+/ .container-fluid.mt-3 
+/   .doctor-dashboard
+/     .row 
+/       .col-6
+/         .card.card-color
+/           .card-header
+/             | Featured
+/           .card-body
+/             .doctor-detail
+/               .profile
+/                 = image_tag "#{dr_image(@doctor)}", alt: "doctor-profile-picture", class: "profile-picture"
+/               .profile-data 
+/                 p 
+/                   span Name : 
+/                   b 
+/                     = @doctor.doctor_full_name
+/                 p 
+/                   span DOB : 
+/                   b 
+/                     = @doctor.doctor.date_of_birth
+/                 p 
+/                   span email : 
+/                   b 
+/                     = @doctor.doctor.email
+/                 p 
+/                   span Department: 
+/                   b 
+/                     = @doctor.department.specialization_name
+/                 p 
+/                   span Hospital: 
+/                   b 
+/                     / = @doctor.department.hospital.name
+/                     / = link_to "#{@doctor.department.hospital.name}", departments_hospital_path(@doctor.department.hospital)
+/                     = link_to "#{@doctor.department.hospital.name}", hospital_path(@doctor.department.hospital)
+/                 p 
+/                   span Qualification: 
+/                   b 
+/                     = @doctor.highest_qualification
+/                 p 
+/                   span Contact: 
+/                   b 2938924923
+                
+/             .biography 
+/               / p Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab recusandae corrupti obcaecati beatae praesentium consectetur dolorem distinctio quia tempore corporis illo facilis provident nihil et commodi alias iure molestias, labore ipsum vitae hic? Incidunt, a fugit accusamus sunt odio suscipit.
+/               p = @doctor.bio
+/             / h5.card-title Special title treatment
+/             / p.card-text With supporting text below as a natural lead-in to additional content.
+/             / a.btn.btn-primary href="#" Go somewhere
+
+/       - if user_signed_in? && current_user.id == @doctor.doctor_id
+/         .col-6
+/           h4.m-2[style="text-align:center;"] Today Appointments
+/           .today-appointments
+/             / p No slots booked for today
+/             - if @appointments.present?
+/               - @appointments.each do |appointment|
+/                 .booked-timeslot data-slot-id="#{appointment.id}"
+/                   span = appointment.timeslot
+/                 .doctor-today-slot id="slot-detail-#{appointment.id}"
+/                   / h1 Hello
+/                   .col-12 
+/                     .card style="width:400px"
+/                       .card-header.d-flex.justify-content-between
+/                         h4 = appointment.patient_full_name
+/                         .btn.btn-danger.close-patient-detail-btn data-slot-id="#{appointment.id}" 
+/                           | Close
+/                       .card-body  
+/                         p
+/                           b 
+/                             | Date of Appointment:  
+/                           = appointment.date 
+/                         p
+/                           b 
+/                             | DOB:  
+/                           = appointment.patient.date_of_birth 
+/                         p
+/                           b 
+/                             | Slot time:  
+/                           = assign_NA(appointment.timeslot)
+/                         p
+/                           b 
+/                             | Smptoms: 
+/                           = assign_NA(appointment.symptoms) 
+/                         p
+/                           b 
+/                             | Medical History: 
+/                           = assign_NA(appointment.medical_history) 
+/                         = link_to "Visit Patient Profile", patient_path(appointment.patient), class: "btn btn-primary"
+/               / .booked-timeslot
+/               /   span 17:00
+/               / .booked-timeslot
+/               /   span 17:00
+/               / .booked-timeslot
+/               /   span 17:00
+/               / .booked-timeslot
+/               /   span 17:00
+/               / .booked-timeslot
+/               /   span 17:00
+/             - elsif current_user.id != @doctor.doctor_id
+/               p You are not permitted to view this section!
+/             - else 
+/               p No appointment for today
+/           / h1 Today Appointments 
+/           / p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda rem aspernatur molestiae, at similique minima.
+/           / p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda rem aspernatur molestiae, at similique minima.
+/           / p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda rem aspernatur molestiae, at similique minima.
+/           / p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda rem aspernatur molestiae, at similique minima.
+/           / p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda rem aspernatur molestiae, at similique minima.
+/           / p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda rem aspernatur molestiae, at similique minima.
+/           / p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda rem aspernatur molestiae, at similique minima.
+/           / p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda rem aspernatur molestiae, at similique minima.
+
+/ = javascript_include_tag "doctors/dashboard"
+
+/  ######## NEW DASHBOARD
+
+.dashboard-container 
+  .persona-details
+    .dashboard-row
+      .dr-dashboard-pic  
+        = image_tag "#{dr_image(@doctor)}", alt: "dr image", class: "profile-pic"
+      .doctor-details 
+        h5.dr-name = "Dr #{@doctor.doctor_full_name} (#{@doctor.highest_qualification})" 
+        p.dr-gender = "#{user_pronoun(@doctor.doctor.gender)}"
+
+        .contact-details
+          p.dr-number 
+            b Mobile: 
+            span = assign_NA(@doctor.doctor.contact)
+          p.dr-email 
+            b Email: 
+            span = @doctor.doctor.email
+        .dep-details 
+          p.dr-hospital 
+            b Hospital: 
+            span = link_to "#{@doctor.department.hospital.name}", hospital_path(@doctor.department.hospital)
+          p.dr-spec 
+            b Specialization: 
+            span Neurology
+
+    .biography 
+      p = @doctor.bio
+    
+  - if current_user && current_user.id == @doctor.doctor_id  
+    h1.heading-all-over.mg-t-12 Today Appointments
+    - if @appointments.present?
+      .today-conf-appts  
+        - @appointments.each do |appt|
+          .appt[data-appt-id="#{appt.id}"] = appt.timeslot
+    - else
+      p.no-appt-today 
+        | You have no appointments for today
+
+= javascript_include_tag "doctors/new_dashboard", type: :module

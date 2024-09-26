@@ -1,0 +1,25 @@
+
+.container.mt-3
+  h4 Patients
+  .row
+    .col-9
+      table.table.table-hover
+        thead
+          tr
+            th scope="col" Name 
+            th scope="col" Gender
+            th scope="col" DOB
+            th scope="col" Profile
+            th scope="col" Status
+        tbody
+          tbody
+            - @users.each do |patient|
+              tr 
+                td = patient.full_name
+                td = patient.gender
+                td = patient.date_of_birth
+                td = link_to "Visit", patient_path(patient), class: "a-2-btn"
+                   
+                td = patient.state
+
+= render partial: "shared/pagination", locals: {resource: @users}

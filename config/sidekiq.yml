@@ -1,0 +1,6 @@
+scheduler:
+  schedule:
+    cancel_appointment_job:
+      cron: "0 0 * * *"
+      class: "CancelAppointmentJob"
+      queue: default

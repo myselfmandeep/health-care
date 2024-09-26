@@ -2,14 +2,23 @@ class PasswordsController < Devise::PasswordsController
   skip_before_action :verify_authenticity_token
 
   def create
-    resource = resource_class.send_reset_password_instructions(sign_up_params)
-
-    if resource.persisted?
-      render json: { message: 'Password reset instructions sent to your email.' }, status: :ok
+    self.resource = resource_class.send_reset_password_instructions(sign_up_params)
+  
+    if successfully_sent?(resource)
+      flash[:notice] = "Password reset instructions sent to your email."
+      redirect_to new_user_session_path
     else
-      render json: { errors: resource.errors.full_messages }, status: :unprocessable_entity
+      # Render the password reset form again with the correct resource
+      self.resource = resource_class.new
+      resource.errors.add(:base, "user not found!")
+      render :new
     end
+  rescue
+    self.resource = resource_class.new
+    resource.errors.add(:base, "Unfortunately our system is unable to deliver mail to you. Please try again later!")
+    render :new
   end
+  
 
   private
 

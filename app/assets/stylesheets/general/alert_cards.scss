@@ -1,0 +1,51 @@
+.notification-alert-card {
+  width: 25%;
+  background-color: #b4eeff;
+  position: fixed;
+  top: 10%;
+  right: 4%;
+  border-left: 5px solid red;
+  // box-shadow: 4px 5px 3px 2px #878787;
+  padding: 1em;
+  color: red;
+  font-size: 17px;
+  font-family: cursive;
+  border-radius: 8px 2px 2px 3px;
+  max-width: 30%;
+  opacity: 0; /* Initially hidden */
+  transform: translateY(-50px); /* Initially moved down */
+  transition: opacity 0.5s ease, transform 0.5s ease; /* Transition for smooth effect */
+  z-index: 1000;
+}
+
+.notification-alert-card.show {
+  opacity: 1; /* Fully visible */
+  transform: translateY(0); /* Move to the original position */
+}
+
+.success-notification-alert-card {
+  width: 30%;
+  background-color: #b4eeff;
+  position: fixed;
+  top: 10%;
+  right: 4%;
+  border-left: 5px solid green;
+  /* box-shadow: 4px 5px 3px 2px #878787; */
+  padding: 1em;
+  color: black;
+  font-size: 17px;
+  font-family: cursive;
+  border-radius: 8px 2px 2px 3px;
+  max-width: 30%;
+  opacity: 0;
+  transform: translateY(-50px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  z-index: 5;
+}
+
+.success-notification-alert-card.show {
+  opacity: 1; /* Fully visible */
+  transform: translateY(0); /* Move to the original position */
+}
+
+

@@ -1,0 +1,32 @@
+
+
+.container.mt-3
+  h4 Rejected Appointments 
+  .row
+    table.table.table-hover
+      thead
+        tr
+          th scope="col" #
+          th scope="col" Patient Name 
+          = show_doctor_th
+          th scope="col" Timeslot
+          th scope="col" Date
+          th scope="col" Symptoms
+          th scope="col" Medical History
+          th scope="col" See Profile
+      tbody
+        tbody
+          - @appointments.each_with_index do |appointment, index|
+            tr 
+              th = "#{index+1}"
+              td = appointment.patient_full_name
+              = show_doctor_td(appointment)
+              td = appointment.timeslot
+              td = appointment.date
+              td = appointment.symptoms.present? ? appointment.symptoms : "N/A" 
+              td = appointment.medical_history.present? ? appointment.medical_history : "N/A" 
+              td 
+                = link_to "Visit", patient_path(appointment.patient_id), class: "btn btn-primary"
+  / = link_to "Back To appointments", appointments_doctor_path(params[:id]), class: "btn btn-primary"
+  = will_paginate @appointments
+  = render "doctors/appointments/back_to_appointment"

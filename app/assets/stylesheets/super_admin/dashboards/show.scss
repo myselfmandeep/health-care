@@ -1,0 +1,56 @@
+.parent-box {
+  height: 100vh; // Ensures the body covers the full viewport height
+  margin: 0; // Removes default margin
+  background: radial-gradient(circle, #ffffff, #7bfef8); // Your gradient
+  background-size: cover; 
+
+  .admin-panel {
+    width: 80%;
+    margin: auto;
+    // background: yellow;
+    // color: red;
+    padding: 1em;
+    // display: flex;
+    position: absolute;
+    top: 10%;
+    // background: #eff4fb;
+    background: #eff4fb;
+    // box-shadow: 4px 6px 6px 6px #efefef;
+    // box-shadow:  2px 6px 11px 6px #5d5d5d;
+    box-shadow:  2px 6px 5px 0px #00000036;;
+    
+    
+    padding: 2em;
+    left: 10%;
+    
+    .links {
+      display: flex;
+      flex-wrap: wrap;
+      
+      .link-path {
+        margin: 1em;
+        padding: 13px;
+        border: none;
+        box-shadow: -3px 2px 5px 5px #dfdfdf;
+        border-radius: 8px;
+        background: #f1f6ff;
+        text-decoration: none;
+        color: black;
+        font-weight: 400;
+        font-family: none;
+        
+        &:hover {
+          background-color: #d1d1d1;
+        }
+      }
+    }
+    // .admin-hospitals, .admin-doctors {
+      //   position: relative;
+      //   // display: flex;
+      //   // flex-direction: column;
+      //   // padding: 1em;
+      
+      // }
+    }
+    
+  }

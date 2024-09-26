@@ -1,0 +1,8 @@
+td  
+  - if user.active?
+    .btn.btn-warning data-user-id="#{user.id}" data-user-change-state="#{user.state}"
+      | suspend
+  - else 
+    .btn.btn-success data-user-id="#{user.id}" data-user-change-state="#{user.state}"
+      | activate
+

@@ -21,15 +21,20 @@ class JwtToken
       JWT.decode(token, secret_key, algorithm: 'HS256')
     end
 
-    def auth_token(token)
+    def auth_token(request)
+      headers = request.headers
       begin
-        payload = decode(token).first
-        user = User.find_by(id: payload[:user_id])
-        return true
+        token = headers["authorization"]&.split(" ")&.last
 
-        false
-      rescue => e
-        true
+        return [true, "Token not found"] unless token.present?
+        payload = decode(token).first
+        user = User.find_by(id: payload["user_id"])
+        return [true, "User not found", token] unless user.present?
+        [false, nil, user]
+      rescue JWT::ExpiredSignature => e
+        [true, "Token has been expired"]
+      rescue JWT::ExpiredSignature => e
+        [true, e.message, token]
       end
     end
     

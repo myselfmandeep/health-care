@@ -1,0 +1,34 @@
+
+.hospital-profile-page
+  .hospital-profile
+    .hospital-name 
+      p = "#{@hospital.name}"
+    .hospital-spec-docs
+      .hospital-specializations 
+        .heading Specializations
+        .specialization-list
+          - if @specializations.present?
+            - @specializations.each do |spec|
+              - doctor_count = @specializations_with_counts[spec.id] || 0
+              .spec data-specialization-id="#{spec.id}" data-hospital-id="#{params[:id]}" data-has-doctor="#{doctor_count == 0 ? false : true}"
+                span = spec.name 
+                span = "#{doctor_count} Dr"
+          - else 
+            p No departments available
+
+      .hospital-doctors 
+        .heading Doctors
+        .doctors-list 
+          table.doctor-table
+            thead 
+              tr
+                th Name
+                th Qualification
+                th Yrs of Exp
+                th Shift start time
+                th Shift end time
+                th Slot Duratoin 
+                th Check Availability
+            tbody 
+
+= javascript_include_tag "hospitals/show", type: :module

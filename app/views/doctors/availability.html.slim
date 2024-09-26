@@ -1,0 +1,13 @@
+
+
+h1 Book an appointment 
+.container 
+  #appointment-container 
+    label Choose a Spealization:
+    select id="select-specialization"
+      option value="" specializations
+    label Choose a Doctors :
+    select id="select-doctor" placeholder="select doctor"
+      option value="" select doctor
+
+= javascript_include_tag "doctors/availability", type: :module

@@ -154,6 +154,8 @@ GEM
     faraday-net_http (3.1.1)
       net-http
     ffi (1.16.3)
+    font-awesome-sass (6.5.2)
+      sassc (~> 2.0)
     fugit (1.11.0)
       et-orbi (~> 1, >= 1.2.11)
       raabro (~> 1.4)
@@ -445,6 +447,7 @@ DEPENDENCIES
   error_highlight (>= 0.4.0)
   faker (~> 3.4)
   faraday (~> 2.9)
+  font-awesome-sass
   grape
   grape-entity (~> 1.0, >= 1.0.1)
   grape-route-helpers

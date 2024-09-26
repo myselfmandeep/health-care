@@ -1,0 +1,82 @@
+.container.mt-3#doctor-portfolio
+  .row#doctor-portfolio
+    .col-sm-8
+      .card
+        .card-body
+          h5
+            = "Dr #{@doctor.doctor_full_name}"
+          p
+            span 
+              b Gender: 
+            = @doctor.doctor.gender
+          p
+            span 
+              b Department: 
+            = @doctor.department.specialization_name
+          p
+            span 
+              b Start At:
+            span#start-at  
+              = @doctor.start_at
+          p
+            span 
+              b End At: 
+            span#end-at 
+              = @doctor.end_at
+          p
+            span 
+              b Slot Duration in Min: 
+            span#slot-duration
+              = @doctor.slot_duration
+            
+          p
+            span 
+              b Years of Experience: 
+            = "#{@doctor.experience_time} years"
+          p
+            span 
+              b Highest Qualification: 
+            = @doctor.highest_qualification
+          #doctor-schedule.btn.btn-primary.m-2 See Schedule
+          #see-appointments.btn.btn-primary.m-2 See Appointments
+          / #confirmed-appointments.btn.btn-primary.m-2 Confirmed Appointment
+
+    .col-sm-4
+      .card
+        .card-body 
+          h5.card-title Appointment Slots
+          .row#doctor-schedule-slots
+            / .row.mt-5
+            /         .col-3
+            /           h3 
+            /             <span class="badge bg-secondary">New</span>
+  .row 
+    .col-8
+      table.table
+        thead
+          tr
+            th scope="col" #
+            th scope="col" Patient Name
+            th scope="col" Timeslot
+            th scope="col" Date
+            th scope="col" Status
+            th scope="col" Reject
+            th scope="col" Confirm
+        tbody#doctor-appointments-table-body
+        /   tr
+        /     th scope="row" 1
+        /     td Mark
+        /     td Otto
+        /     td @mdo
+        /     td @mdo
+        /     td
+        /       button.btn.btn-danger Hello
+        /     td
+        /       button.btn.btn-success Hello
+    .col-sm-4
+      .card
+        .card-body 
+          h5.card-title Notifications
+          .row      
+            ul#doctor-notifications
+= javascript_include_tag "doctors/schedule", type: :module

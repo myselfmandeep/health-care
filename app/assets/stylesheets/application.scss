@@ -1,0 +1,96 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+@import "bootstrap";
+@import 'font-awesome';
+@import "doctors/appointment.scss";
+// @import "doctors/dashboard.scss";
+@import "general/nav_bar.scss";
+
+.flash {
+  background: grey;
+  color: white;
+  border: 2px solid black;
+  border-radius: 5px;
+  margin: 6px;
+  padding: 5px;
+};
+
+.link {
+  color: white;
+  text-decoration: none;
+}
+
+.timeslot:hover {
+  background-color: yellow;
+}
+
+
+
+
+.temp-container {
+  width: 20vw;
+  // height: 25px;
+  background: red;
+  position: absolute;
+  right: 0;
+  z-index: 5;
+  border: 2px solid grey;
+  padding: 18px;
+  margin: 20px;
+}
+
+.action-btn {
+  position: relative;
+}
+
+// .flash-alerts-popup {
+//   background: #e9e9e9;
+//   width: 40%;
+//   margin: auto;
+//   position: absolute;
+//   top: 5%;
+//   left: 10%;
+//   border-radius: 8px;
+//   box-shadow: 0px 4px 3px 2px #cbcbcb;
+//   right: 10%;
+//   padding: 8px;
+// }
+
+.flash-alerts-popup {
+  background: #e9e9e9;
+  margin: auto;
+  border-radius: 8px;
+  box-shadow: -1px 0px 2px 0px #ff0000;
+  color: red;
+}
+
+.flash-alert-messages {
+  position: absolute;
+  z-index: 5;
+  background: #e9ffff;
+  margin: auto;
+  top: 6%;
+  right: 10%;
+  left: 10%;
+  padding: 8px;
+  border-radius: 8px;
+  box-shadow: 3px 4px 3px 2px #aeb9be;
+  font-family: monospace;
+  outline: green 2px 2px;
+}
+
+// @import "general/tests.scss";

@@ -1,0 +1,82 @@
+
+.appts-container
+  .appts-types
+    - unless current_user.patient?
+      .appts-type data-appointment-status="upcoming"
+        | Upcoming
+    .appts-type data-appointment-status="requested"
+      | Requested
+    .appts-type data-appointment-status="confirmed"
+      | Confirmed
+    .appts-type data-appointment-status="cancelled"
+      | Cancelled
+    .appts-type data-appointment-status="rejected"
+      | Rejected
+    .appts-type.selected-appt-section 
+      | All
+  .appts-filters
+    .filter.doctor-name style="display: #{current_user.doctor? ? 'none' : ''};"
+      input.doctor-filter-name type="text" placeholder="doctor name"
+
+    .filter.patient-name style="display: #{current_user.patient? ? 'none' : ''};"
+      input.patient-filter-name type="text" placeholder="patient name"
+
+    .filter.date 
+      input.filter#filter-date type="date"
+      input.filter#filter-time type="time"
+      select.filter.select-options#filter-order 
+        option value="" 
+          | Order By
+        option value="ASC" ASC 
+        option value="DESC" DESC 
+      select.filter.select-options#filter-per-page 
+        option value="" 
+          | Records Size
+        - [25,50,100].each do |n|
+          option value="#{n}" = n
+    
+    .filter.button
+      button.filter-button Search
+    .filter.button.reset-button
+      button Reset
+  .appts-rows
+    table.appts-table
+      thead.table-head
+        tr
+          - unless current_user.patient? 
+            th.table-heading Patient name
+          - unless current_user.doctor? 
+            th.table-heading Doctor name
+          th.table-heading Timeslot
+          th.table-heading Date
+          th.table-heading Status
+          th.table-heading Action
+          / th.table-heading Action
+      tbody.appts-table-body
+        / - Appointment.limit(1000).each do |appt|
+        /   tr
+        /     td = appt.patient_full_name
+        /     td = appt.doctor_full_name
+        /     td = appt.timeslot
+        /     td = appt.date
+        /     td = appt.status
+        /     td = "See Detail"
+        /     td = "Action"
+            / td = appt.
+  / .appts-pagination  
+  /   .appt-page-no
+  /     a.page-link href="#" 1
+  /     a.page-link href="#" 2
+  /     a.page-link href="#" 3
+  /     a.page-link href="#" 4
+  /     a.page-link href="#" 5
+  /   .no-of-entries 
+  /     label No. of appointments
+  /     select name="no-of-entries" 
+  /       option value="1" 1
+  /       option value="2" 2
+  /       option value="3" 3
+  /       option value="4" 4
+  /       option value="5" 5
+
+= javascript_include_tag "appointments/index", type: :module

@@ -1,0 +1,17 @@
+.container 
+  .row 
+    .col-8
+      table.table
+        thead
+          tr
+            th scope="col" #
+            th scope="col" Specialization
+            th scope="col" Doctors
+        tbody#doctor-appointments-table-body
+          - @departments.each_with_index do |department, index|
+            tr
+              td = "#{index+1}"
+              td = department.specialization_name
+              td 
+                - no_of_drs = @dr_count[department.specialization_id] || 0
+                = link_to "#{no_of_drs} #{plural_singular("Dr", no_of_drs)}", doctors_department_path(department), class: "a-2-btn min-width-50px"

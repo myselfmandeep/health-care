@@ -1,0 +1,11 @@
+
+.container
+  = render partial: "doctors/filter_search_bar"
+  .row 
+    - if @doctors.present?
+      - @doctors.each do |doctor|
+        = render partial: "/doctors/listing", locals: {doctor: doctor} 
+    - else 
+      h4.no-doc-avail No Doctors available
+      
+= javascript_include_tag "hospitals/doctors"

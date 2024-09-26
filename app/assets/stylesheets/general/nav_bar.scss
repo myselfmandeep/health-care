@@ -1,0 +1,23 @@
+.notifications {
+//  color: red; 
+}
+
+.notifications:hover {
+  cursor: pointer;
+}
+.overflow-control {
+  // white-space: nowrap;       /* Prevent text from wrapping */
+  overflow: scroll;          /* Hide overflowed content */
+  text-overflow: ellipsis;   /* Show "..." for overflowed text */
+  max-width: 150px;          /* Set a maximum width for the cell */
+  overflow-x: auto;          /* Allow horizontal scrolling if content overflows */
+}
+
+/* Hide the scrollbar in WebKit browsers */
+.overflow-control::-webkit-scrollbar {
+  display: none;             /* Hides the scrollbar in WebKit browsers */
+}
+
+// .table {
+//   table-layout: fixed;       /* Ensures the table columns respect max-width */
+// }

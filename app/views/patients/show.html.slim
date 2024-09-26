@@ -1,0 +1,37 @@
+
+.container.mt-3
+  .row.edit-profile-row
+    .col-6
+      .card
+        .card-body.profile-container
+          .header
+            h3.heading = "#{capitalize(@patient.full_name)} Persona"
+
+          .details 
+            .profile-pic 
+              = image_tag user_image(@patient), alt: "male-user-picture"
+            .user-info 
+              p
+                b Email: 
+                span = @patient.email
+              p
+                b Username: 
+                span = @patient.username
+              p
+                b Date of Birth: 
+                span = @patient.date_of_birth
+              p
+                b Gender: 
+                span = @patient.gender
+              p
+                b Contact: 
+                span = assign_NA(@patient.contact)
+          .navigation-btns 
+            button.btn.btn-primary.pf-btn.pf-nav-btn.m-1#go-to-previous-page Go to previous page 
+            - if user_signed_in?
+              - if @patient == current_user
+                = link_to "Edit Profile", edit_user_registration_path(@patient), class: "btn btn-primary pf-btn pf-nav-btn"
+              - if @patient != current_user 
+                = link_to "Chat", chats_path, class: "doctor-card-btn chat-with-doctor pf-btn pf-nav-btn", data: { doctor_id: @patient.id, doctor_name: @patient.full_name} 
+
+= javascript_include_tag "patients/show", type: :module

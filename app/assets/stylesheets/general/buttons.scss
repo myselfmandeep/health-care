@@ -1,0 +1,26 @@
+.my-buttons {
+  padding: 17px;
+  margin: 16px;
+  box-shadow: 3px 4px 7px #e2e2e2;
+  background: linear-gradient(to circle, black, #939b9a);
+  text-decoration: none;
+  background: radial-gradient(circle, #dfe0ff, #dfffe9);
+  border-radius: 1em;
+}
+
+// #reset-filter-button {
+//   border: none;
+//   background: radial-gradient(circle, #eaf5f8, #cfe4f6);
+//   padding: 8px;
+//   margin: 8px;
+//   border-radius: 8px;
+//   box-shadow: 3px 1px 3px 0px #00ffaa;
+// }
+
+.default-btn {
+  background: gray;
+  color: white;
+  padding: 4px 8px;
+  border: none;
+  border-radius: 4px;
+}

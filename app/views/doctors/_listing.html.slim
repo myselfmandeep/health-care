@@ -1,0 +1,107 @@
+/ .col-3 data-doctor-name="#{doctor.doctor_full_name}" data-doctor-specialization="#{doctor.department.specialization.name}" data-hospital="#{doctor.department.hospital.name}"
+/   .card.doctor-card
+/     .card-body
+/       h5
+/         = "Dr #{doctor.doctor_full_name}"
+/       p
+/         span 
+/           b Gender: 
+/         = doctor.doctor.gender
+/       p
+/         span 
+/           b Hospital: 
+/         = doctor.department.hospital_name
+/       p
+      
+/         span 
+/           b Department: 
+/         = doctor.department.specialization_name
+/       p
+/         span 
+/           b Start At:
+/         span#start-at  
+/           = doctor.start_at
+/       p
+/         span 
+/           b End At: 
+/         span#end-at 
+/           = doctor.end_at
+/       p
+/         span 
+/           b Slot Duration in Min: 
+/         span#slot-duration
+/           = doctor.slot_duration
+        
+/       p
+/         span 
+/           b Years of Experience: 
+/         = "#{doctor.experience_time} #{plural_singular("year", doctor.experience_time)}"
+/       p
+/         span 
+/           b Highest Qualification: 
+/         = doctor.highest_qualification
+/       p
+/         span 
+/           b = link_to "Visit Profile", dashboard_doctor_path(doctor), class: "pf-visit-link"
+/       .action-btns 
+/         = link_to "Book An Appointment", book_appointment_doctor_path(doctor), class: "doctor-card-btn" unless current_user.try(:doctor?)
+
+/         - if user_signed_in?
+/           = link_to "Edit", edit_doctor_path(doctor), class: "doctor-card-btn" if is_super_admin?
+/           = link_to "Chat", chats_path, class: "doctor-card-btn chat-with-doctor", data: { doctor_id: doctor.doctor_id, doctor_name: doctor.doctor_full_name} if !current_user.doctor?
+
+/         / = link_to "Profile", dashboard_doctor_path(doctor), class: "doctor-card-btn chat-with-doctor"
+
+.col-9 data-doctor-name="#{doctor.doctor_full_name}" data-doctor-specialization="#{doctor.department.specialization.name}" data-hospital="#{doctor.department.hospital.name}"
+  .card.doctor-card.default-border
+    .card-body
+      .row
+        .col-2 
+          = image_tag "#{dr_image(doctor)}", alt: "doctor-profile-picture", class: "doc-profile-picture", style: "width:100%;"
+
+        .col-10 
+          h5
+            = "Dr #{doctor.doctor_full_name} (#{doctor.highest_qualification})"
+          p[style="color:gray;font-size:14px"]
+            span 
+              b 
+            = doctor.doctor.gender
+
+          .row.mb-2
+            .col-6
+              p
+                b Hospital: 
+                = link_to "#{doctor.department.hospital_name}", hospital_path(doctor.department.hospital_id), class: "nav-a-link"
+            .col-6
+              p 
+                b Department: 
+                = doctor.department.specialization_name
+
+          .row.mb-2
+            .col-6
+              p
+                b Slot Duration: 
+                span#slot-duration
+                = "#{doctor.slot_duration} min"
+            .col-6
+              p
+                b Experience: 
+                = "#{doctor.experience_time} #{plural_singular("yr", doctor.experience_time)}"
+
+          p
+            b 
+              | Timing: 
+            = "#{doctor.start_at} - #{doctor.end_at}"
+
+          .action-btns 
+            span  = link_to "Visit Profile", dashboard_doctor_path(doctor), class: "pf-visit-link a-2-btn"
+            = link_to "Book An Appointment", book_appointment_doctor_path(doctor), class: "doctor-card-btn" unless current_user.try(:doctor?)
+
+            - if user_signed_in?
+              = link_to "Edit", edit_doctor_path(doctor), class: "doctor-card-btn" if is_super_admin?
+
+              - if current_user.super_admin? || (!current_user.doctor? && current_user.present? && current_user.appointments.exists?(doctor_id: doctor.doctor.id)) 
+                = link_to "Chat", chats_path, class: "doctor-card-btn chat-with-doctor", data: { doctor_id: doctor.doctor_id, doctor_name: doctor.doctor_full_name} 
+
+            / = link_to "Profile", dashboard_doctor_path(doctor), class: "doctor-card-btn chat-with-doctor"
+

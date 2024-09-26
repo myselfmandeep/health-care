@@ -1,0 +1,36 @@
+
+.container
+  .row.doctor-edit-form
+    / h1.heading = "Edit Dr #{@dr_profile.doctor_full_name.capitalize} Profile"
+    h1.heading = "Dr #{@dr_profile.doctor_full_name.capitalize}"
+    / .col-4
+    = render partial: "devise/shared/error_messages", locals: {resource: @dr_profile}
+    / = form_with model: @dr_profile, local: true do |f|
+    = form_with model: @dr_profile, url: doctor_path(@dr_profile), method: :put, scope: :dr, local: true, class: "form-layout default-border" do |f|
+      
+      / .col-4.d-flex
+      .timings 
+        .mb-3.time
+          = f.label :start_at, class: "dr-form-label"
+          = f.time_field :start_at, class: "form-control"
+
+        .mb-3.time
+          = f.label :end_at, class: "dr-form-label"
+          = f.time_field :end_at, class: "form-control"
+
+      / .col-5
+      .mb-3.input-field
+        = f.label :slot_duration, "Slot duration in minutes:", class: "dr-form-label"
+        = f.text_field :slot_duration, class: "form-control", placeholder: "15 or 30 min"
+
+      .mb-3.input-field
+        = f.label :experience_time, "Total years of Experience:", class: "dr-form-label"
+        = f.text_field :experience_time, class: "form-control", placeholder: "in years"
+
+      / .col-6 
+      .mb-3.input-field
+        = f.label :highest_qualification, "Highest qualification:", class: "dr-form-label"
+        = f.text_field :highest_qualification, class: "form-control"
+      
+      .mb-3.submit-btn-container
+        = f.submit

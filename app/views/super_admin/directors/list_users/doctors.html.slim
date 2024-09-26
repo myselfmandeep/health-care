@@ -1,0 +1,37 @@
+
+.container.mt-3
+  h4 Doctors
+  .row
+    table.table.table-hover
+      thead
+        tr
+          th scope="col" Name 
+          th scope="col" Gender
+          th scope="col" DOB
+          th scope="col" Hospital
+          th scope="col" Specialization
+          th scope="col" Start At
+          th scope="col" End At
+          th scope="col" Slot Interval
+          th scope="col" Years of Exp
+          th scope="col" Qualification
+          th scope="col" Profile
+          th scope="col" Edit
+      tbody
+        tbody
+          - @users.each do |doctor, index|
+            tr 
+              td = doctor.doctor_full_name
+              td = doctor.doctor.gender
+              td = doctor.doctor.date_of_birth
+              td.overflow-control = doctor.department.hospital_name
+              td.overflow-control = doctor.department.specialization_name
+              td = doctor.start_at
+              td = doctor.end_at
+              td = "#{doctor.slot_duration} min"
+              td = "#{doctor.experience_time} years"
+              td = doctor.highest_qualification
+              td = link_to "Dr Profile", dashboard_doctor_path(doctor), class: "a-2-btn"
+              td = link_to "Edit", edit_doctor_path(doctor), class: "a-2-btn"
+
+= render partial: "shared/pagination", locals: {resource: @users}

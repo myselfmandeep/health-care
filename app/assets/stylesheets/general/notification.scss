@@ -1,0 +1,301 @@
+.notification-container {
+  position: absolute;
+  top: 15%;
+  right: 5%;
+  width: 300px;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Space between notifications */
+}
+
+.notification-alert {
+  // background: #e3e3e3;
+  // box-shadow: -12px -3px 11px 2px #c5c5c5;
+  // padding: 16px;
+  // width: 100%;
+  // border-radius: 16px;
+
+  // background: #06acff;
+  // /* box-shadow: -12px -3px 11px 2px #c5c5c5; */
+  // padding: 16px;
+  // width: 100%;
+  // border-radius: 16px;
+  // color: white;
+  // border-left: 14px solid #202ce5;
+  background: #ededef;
+  /* box-shadow: -12px -3px 11px 2px #c5c5c5; */
+  padding: 16px;
+  width: 100%;
+  border-radius: 16px;
+  color: black;
+  border-left: 5px solid black;
+}
+
+.new_appointment {
+  background: white;
+  width: 50%;
+  padding: 10px;
+  border-radius: 8px;
+  color: black;
+  cursor: pointer;
+}
+
+// nav bar
+.notifications-nav-bar {
+  position: relative;
+  cursor: pointer;
+  
+  .notifications-modal {
+    display: none;
+  }
+  
+  .parent-notification-container {
+    // display: none;
+    // position: absolute;
+    // width: 430px;
+    // // background: #d0d0d0;
+    // background: radial-gradient(circle, #fdfdfd, #8abaff);
+    // height: 400px;
+    // overflow: scroll;
+    // border-radius: 8px;
+    // top: 100%;
+    // box-shadow: 2px 2px 2px #768897;
+    // cursor: default;
+    // // flex-direction: column;
+
+    // display: none;
+    // position: absolute;
+    // width: 430px;
+    // background: radial-gradient(circle, #fdfdfd, #8abaff);
+    // height: 400px;
+    // overflow: scroll;
+    // border-radius: 8px;
+    // top: 130%;
+    // /* box-shadow: 2px 2px 2px #768897; */
+    // cursor: default;
+    // right: 0;
+    // background: #dbd9db;
+    // z-index: 100;
+    
+    // position: absolute;
+    // width: 430px;
+    // background: radial-gradient(circle, #fdfdfd, #8abaff);
+    // height: 400px;
+    // overflow: scroll;
+    // border-radius: 8px;
+    //  top: 6%;
+    // /* box-shadow: 2px 2px 2px #768897; */
+    // cursor: default;
+    // right: 10%;
+    // background: #dbd9db;
+    position: absolute;
+    width: 430px;
+    background: radial-gradient(circle, #fdfdfd, #8abaff);
+    height: 400px;
+    overflow: scroll;
+    border-radius: 8px;
+    top: 6%;
+    /* box-shadow: 2px 2px 2px #768897; */
+    cursor: default;
+    right: 10%;
+    background: #dbd9db;
+    background: #d6d6d6;
+    
+    .single-notification {
+      padding: 12px;
+      border-bottom: 1px solid black;
+      font-family: sans-serif;
+      margin: 5px 0px;
+
+      p {
+        color: black;
+        font-weight: 500;
+      }
+ 
+    }
+
+
+    &::-webkit-scrollbar {
+      display: none;             /* Hides the scrollbar in WebKit browsers */
+    }
+    
+      
+  }
+
+  
+};
+
+.notifications-close-btn {
+  display: inline-block;
+  color: white;
+  // background: red;
+  background-color: black;
+  position: sticky;
+  padding: 8px;
+  border-radius: 8px;
+  margin: 5px;
+  cursor: pointer;
+  top: 2%;
+  left: 90%;
+}
+
+
+
+nav.nav-bar {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+  background-color: #d7d7d7;
+
+  .nav-partitions {
+    display: flex;
+    align-items: center;
+    margin-right: 5%;
+
+    .nav-item {
+      background:  #d7d7d7;
+      // padding: 10px;
+
+      // &:hover {
+      //   cursor: pointer;
+      //   background-color: #afafaf;
+      //   ;
+      // }
+
+      .nav-link {
+        text-decoration: none;
+        padding: 10px;
+    
+        &:hover {
+          cursor: pointer;
+          background-color: #afafaf;
+          ;
+        }
+      }
+
+      .nav-icons {
+        // padding: 8px;
+      }
+      
+    }
+
+    .logged-in-type {
+      position: relative;
+      cursor: pointer;
+
+      .profile-parent-modal {
+        position: fixed;
+        z-index: 5;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        background: #00000042;
+        display: none;
+      }
+      
+      .profile-modal {
+        position: absolute;
+        background-color: #f7f7ef;
+        /* top: 100%; */
+        // display: none;
+        flex-direction: column;
+        align-items: center;
+        /* right: 10%; */
+        z-index: 100;
+        right: 5%;
+        top: 6%;
+
+        .user-details {
+          padding: 12px;
+          border-bottom: 2px solid #5b4646;
+          margin-bottom: 20px;
+
+          .profile-item {
+            font-size: 14px;
+            background: gray;
+            color: white;
+            padding: 5px;
+          }
+
+          .see-profile {
+            text-decoration: none;
+            font-size: 18px;
+            border-bottom: 2px solid;
+            border: none;
+            background: #1732c1;
+            color: white;
+            padding: 6px;
+            margin: 5px;
+            border-radius: 5px;
+          }
+        }
+        
+        .session-actions {
+          display: flex;
+          flex-direction: column;
+          width: 150px;
+          align-items: center;
+          // height: 50px;
+          
+          .logout-button {
+
+            border: none;
+            color: white;
+            background: red;
+            padding: 14px;
+            border-radius: 5px;
+            margin-bottom: 8px;   
+          }
+          
+          .sign-in-button {
+            border: none;
+            color: white;
+            background: #0947ff;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 8px;
+            margin: 8px;
+            text-decoration: none;
+          }
+          
+          .sign-up-button {
+            border: none;
+            color: white;
+            background: #0095d1;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 8px;
+            margin: 8px;
+            text-decoration: none; 
+          }
+        }
+      }
+    }
+
+
+    
+  }
+
+}
+
+@media screen and (max-width: 828px) {
+
+  nav.nav-bar {
+    flex-direction: column;
+
+    .nav-partitions {
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+  
+  
+}
+
+
+// .hide {
+//   display: none;
+// }

@@ -1,0 +1,35 @@
+.password-reset-form {
+  width: 30%;
+  margin: 10% auto auto auto;
+  background: #f3f3f3;
+  border-radius: 8px;
+  padding: 2em 1em;
+  box-shadow: 6px 6px 5px 2px #a3a3a3;
+
+  .field {
+    padding: 1em 8px;
+
+    label {
+      color: black;
+      font-size: 16px;
+    }
+
+    input {
+      border: none;
+      padding: 5px;
+      border-radius: 5px;
+      box-shadow: 3px 3px 4px 3px #d8d8d8;
+    }
+  }
+
+  
+  .reset-form-btn {
+    border: none;
+    background: #d3e3e3;
+    padding: 8px;
+    border-radius: 8px;
+    margin-top: 8px;
+  }
+  
+  
+}

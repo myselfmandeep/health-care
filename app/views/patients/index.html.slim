@@ -1,0 +1,26 @@
+
+.container
+  h1 Patients 
+  .row 
+    .col-8 
+      table.table
+        thead
+          tr
+            th scope="col" #
+            th scope="col" Patient Name 
+            th scope="col" Date of Birth 
+            th scope="col" Gender  
+            th scope="col" Appointments 
+        tbody
+          - @patients.each_with_index do |patient, index|
+            tr
+              th scope="row" = "#{index+1}"
+              td = patient.full_name
+              td = patient.date_of_birth.nil? ? "N/A" : patient.date_of_birth 
+              td = patient.gender
+              td 
+                - if patient.patient_appointments.count == 0
+                  = "N/A"
+                - else 
+                  = link_to "Appointments", appointments_patient_path(patient), class: "btn btn-primary link" 
+              

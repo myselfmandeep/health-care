@@ -1,0 +1,99 @@
+#book-appt-row {
+  width: 60%;
+}
+
+.appointment-booking-box {
+  background: #f2f2f2;
+  border: none;
+  // box-shadow: 1px 4px 4px 7px #e1e1e1;
+
+  .doc-detail {
+    border-bottom: 2px solid rgb(197, 197, 197);
+    margin-bottom: 12px;
+    
+    .profile {
+      
+      .doc-profile-picture {
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+      }
+    }
+
+    .doc-name {
+
+    }
+
+    .doc-spec {
+      font-size: 14px;
+      color: gray;
+    }
+  }
+}
+
+
+.timeslots {
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  grid-gap: 15px;
+  margin: 20px 0 20px 0;
+  
+  .each-slot {
+    display: flex;
+    flex-direction: column;
+    background: red;
+    border: 2px solid black;
+    border-radius: 8px;
+    // box-shadow: 2px 8px #e6eaff;
+    // background-color: white !important;
+    padding: 8px;
+    margin: 5px;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid lightgray;
+    border-radius: 50px;
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+    
+    .time {
+      font-weight: bolder;
+      font-size: 14px;
+      font-weight: 400;
+    }
+    
+    .book-now {
+      // border: none;
+      padding: 9px;
+      // font-size: large;
+      // border-radius: 5px;
+      // box-shadow: 1px 1px 3px 1px #d2d2d2;
+      
+    }
+
+    
+
+
+    
+  }
+
+  .disabled-cursor {
+    cursor: not-allowed;
+  }
+}
+
+.book-appointment-container {
+  margin-top: 12px;
+  // display: flex;
+  // justify-content: center;
+  // align-items: center;
+  // height: 100vh;
+
+  .booking-detail-container {
+    height: 100%;
+    width: 100%;
+    border: 2px solid black;
+    background-color: yellow;
+    
+  }
+} 
+

@@ -1,0 +1,38 @@
+.container 
+  .row.m-3
+    .col-3
+      input#specialization-search-field.form-control type="text" placeholder="name of specialization"
+    .col-1
+      #reset-filter-button.btn.btn-secondary Reset
+    .col-1
+      #search-button.btn.btn.btn-primary Search
+
+  .row 
+    .col-8
+      - if @specializations.present?
+        table.table
+          thead
+            tr
+              th scope="col" #
+              th scope="col" Name
+              - unless is_doctor?
+                th scope="col" Hospitals
+              th scope="col" Doctors
+          tbody#doctor-appointments-table-body
+            - @specializations.each_with_index do |specialization, index|
+              tr data-specialization-name="#{specialization.name}"
+                td = "#{index+1}"
+                td = specialization.name
+                - unless is_doctor?
+                  td 
+                    = link_to "Get List", hospitals_specialization_path(specialization), class: "a-2-btn min-width-50px"
+                    / = link_to "#{hospital_count(@hosp_count.try(:dig, specialization.id))}", hospitals_specialization_path(specialization), class: "a-2-btn min-width-85px"
+                td 
+                  = link_to "Get List", doctors_specialization_path(specialization), class: "a-2-btn"
+  
+        = render_pagination(@specializations)
+      - else 
+        h4.no-doc-avail No Specialization Found
+= render partial: "shared/spinner", locals: {dom_id: "search-button"}
+
+= javascript_include_tag "specializations/index", type: :module

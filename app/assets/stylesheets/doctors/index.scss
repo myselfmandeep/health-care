@@ -1,0 +1,118 @@
+// .doctors-listing-container {
+//   display: flex;
+//   justify-content: center;
+//   background-color: #f3f3f3;
+  
+//   .doctor-filter-bar {
+//     display: flex;
+//     background: #f3f3f3;
+//     width: 100%;
+//     padding: 8px;
+//   }
+// }
+
+#doctor-portfolio {
+  // background: radial-gradient(#b31aa0, #ffa7a7);
+  
+  .doc-home-filters {
+    display: flex;
+    justify-content: center;
+
+    #search-button {
+      background: black;
+      border: none;
+    }
+
+    #filter-reset-btn {
+      /* background: black; */
+      border: none;
+      /* color: white; */
+      background: rgb(193, 193, 193);
+      color: black;
+    }
+  }
+  
+  .card.doctor-card {
+    background: white;
+    color: rgb(0, 0, 0);
+    text-wrap: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    margin: 8px 0;
+  
+    .doc-profile-picture {
+      border-radius: 50%;
+    }
+  
+    .action-btns {
+      display: flex;
+      justify-content: space-between;
+    }
+    
+    .doctor-card-btn {
+      text-decoration: none;
+      background: black;
+      color: white;
+      padding: 12px;
+      border-radius: 3px;
+    }
+  }
+}
+
+select {
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+
+.card.doctor-card {
+  background: white;
+  color: black;
+  text-wrap: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  margin: 8px 0;
+
+
+  .action-btns {
+    display: flex;
+    justify-content: right;
+    width: 100%;
+
+    span {
+      width: 100%;
+      color: black;
+
+      a {
+        justify-self: baseline;
+        float: left;
+        // width: 100%;
+        // width: 20%;
+        display: flex;
+        justify-content: flex-start;
+        color: #181515;
+        font-size: 14px;
+        margin-top: 15px;
+      }
+    }
+  }
+  
+  .doctor-card-btn {
+    text-decoration: none;
+    background: black;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    margin: 5px;
+  }
+}
+
+h4.no-doc-avail {
+  background: #e0e0e0;
+  padding: 10px;
+  width: 90%;
+  margin: auto;
+  text-align: center;
+}

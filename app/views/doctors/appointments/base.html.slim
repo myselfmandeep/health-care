@@ -1,0 +1,75 @@
+
+.container
+  h1 Appointments 
+  .row 
+    .col-8 
+      .card 
+        .card-header
+          h6 With particular status
+        .card-body
+          = link_to "requested", determine_appointments_path(status: "requested"), class: "btn btn-warning m-2"
+          = link_to "Rejected", determine_appointments_path(status: "rejected"), class: "btn btn-danger m-2"
+          = link_to "confirmed", determine_appointments_path(status: "confirmed"), class: "btn btn-success m-2"
+          = link_to "cancelled", determine_appointments_path(status: "cancelled"), class: "btn btn-secondary m-2"
+    
+      .col-3
+        label for="date-of-appointment" Filter by date
+        input#date-of-appointment.form-control type="date"
+        button#reset-filter-button Reset
+      table.table
+        thead
+          tr
+            / th scope="col" #
+            th scope="col" Patient Name 
+            = show_doctor_th
+            th scope="col" Timeslot
+            th scope="col" Date
+            th scope="col" Status
+            th scope="col" Action 
+        tbody
+          - @appointments.each_with_index do |appointment, index|
+            / = binding.pry
+            tr.table-rows id="appointment-#{appointment.id}" class="#{table_row_color(appointment)}" data-appointment-date="#{appointment.date}" data-appointment-status="#{appointment.status}"
+              / th scope="row" = "#{index+1}"
+              td = appointment.patient.full_name
+              = show_doctor_td(appointment)
+              td = appointment.timeslot
+              td = appointment.date
+              td id="appointment-status-#{appointment.id}" class="#{appointment.status}"
+                = appointment.status
+              td 
+                div.action-btn id="action-btn-#{appointment.id}" 
+                  .btn.btn-primary data-appointment-id="#{appointment.id}"
+                    | See Details 
+                .card.appointment-detail id="appointment-detail-#{appointment.id}"
+                  .card-header
+                    = appointment.patient_full_name
+                  table.table
+                    thead
+                      tr
+                        / th scope="col" Timeslot
+                        th scope="col" DOB
+                        th scope="col" Gender 
+                        th scope="col" Email 
+                        th scope="col" Phone 
+                    tbody
+                      tr
+                        td = appointment.patient.date_of_birth
+                        td = appointment.patient.gender
+                        td = appointment.patient.email
+                        td 293892382
+                  .card-body
+                    .symptoms
+                      h5 Symptoms
+                      p = appointment.symptoms
+                    .medical-history 
+                      h5 Medical History
+                      p = appointment.medical_history
+                    .col-8 
+                      .m-1.btn.btn-danger#cancel-btn
+                        | Close
+
+  / = will_paginate @appointments
+  = render_pagination(@appointments)
+      
+= javascript_include_tag "doctors/appointment_templates/base"

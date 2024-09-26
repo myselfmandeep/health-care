@@ -1,0 +1,76 @@
+.container
+  h1 Add Doctor
+
+  .row
+    .col-4
+      .flash-alerts-popup#error_explanation
+      = form_with url: "/api/v1/doctors/add_new_doctor", method: :post, id: "create-doctor-form", local: true do |f|
+        .mb-3
+          = f.label :email, "Email:"
+          = f.email_field :email, class: "form-control", id: "email"
+          span#email-error
+
+        .mb-3
+          = f.label :full_name, "Name:"
+          = f.text_field :full_name, class: "form-control", id: "name"
+          span#full-name-error
+
+        .mb-3
+          = f.label :password, "Password:"
+          = f.password_field :password, class: "form-control", id: "password"
+          span#password-error
+
+        .mb-3
+          = f.label :password_confirmation, "Password Confirmation:"
+          = f.password_field :password_confirmation, class: "form-control", id: "password_confirmation"
+          span#password-confirmation-error
+
+        .mb-3
+          = f.label :date_of_birth, "Date of Birth:"
+          = f.date_field :date_of_birth, class: "form-control", id: "date-of-birth"
+          span#date-of-birth-error
+
+        .mb-3
+          = f.label :gender, "Gender:"
+          = f.select :gender, options_for_select(User::GENDERS, ""), { include_blank: "Select Gender" }, class: "form-control", id: "gender"
+
+        .mb-3
+          = f.hidden_field :role, value: "doctor"
+
+        .start-time-end-time style="display:flex;"
+          .mb-3
+            = f.label "doctor_profile[start_at]", "Start At:"
+            = f.time_field "doctor_profile[start_at]", class: "form-control", id: "start-at"
+          .mb-3
+            = f.label "doctor_profile[end_at]", "End At:"
+            = f.time_field "doctor_profile[end_at]", class: "form-control", id: "end-at"
+          span#start-time-error
+          span#end-time-error
+
+        .mb-3
+          = f.label "doctor_profile[highest_qualification]", "Highest Qualification:"
+          = f.text_field "doctor_profile[highest_qualification]", class: "form-control", id: "highest-qualification"
+          span#highest-qualification-error
+
+        .mb-3
+          = f.label "doctor_profile[years_of_experience]", "Years of Experience:"
+          = f.text_field "doctor_profile[years_of_experience]", class: "form-control", id: "experience"
+
+        .mb-3
+          = f.label "doctor_profile[slot_duration]", "Slot Interval:"
+          = f.select "doctor_profile[slot_duration]", options_for_select(DoctorProfile::VALID_SLOTS.map { |slot| ["#{slot} minutes", slot] }), {}, class: "form-control", id: "slot-duration"
+
+        .col-10.mb-3
+          = f.label "doctor_profile[hospital_id]", "Select Hospital"
+          = f.select "doctor_profile[hospital_id]", options_for_select(@hospitals.map { |hospital| [hospital.name, hospital.id] }), { include_blank: "Available Hospital List" }, class: "form-control", id: "hospital"
+          span#hospital-error
+
+        .col-10.mb-3
+          = f.label "doctor_profile[department_id]", "Select Department"
+          = f.select "doctor_profile[department_id]", [], { include_blank: "Department List" }, class: "form-control", id: "departments"
+          span#department-error
+
+        .mb-3
+          = f.submit "Submit", class: "btn btn-primary", id: "form-submit-button"
+
+= javascript_include_tag "super_admin/directors/add_doctor", type: :module

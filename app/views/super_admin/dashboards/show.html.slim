@@ -1,0 +1,11 @@
+/ h1 = @user.email
+
+.parent-box
+  .admin-panel
+    .links
+      = link_to "List Hospitals", hospitals_path, class: "link-path"
+      = link_to "List All Drs", list_users_su_director_path(role: "doctor"), class: "link-path"
+      = link_to "Add new Dr", add_doctor_su_director_path(role: "doctor"), class: "link-path"
+      = link_to "Add new Hospital", add_hospital_su_director_path, class: "link-path"
+      = link_to "List All Patients", list_users_su_director_path(role: "patient"), class: "link-path"
+      = link_to "List All Users", list_users_su_director_path, class: "link-path"

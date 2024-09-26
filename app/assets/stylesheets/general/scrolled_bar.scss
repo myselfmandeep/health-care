@@ -1,0 +1,15 @@
+// .top-scroll-bar {
+//   position: fixed;
+//   width: 0;
+//   top: 0;
+//   width: 50px;
+//   height: 6px;
+// }
+.scrolled-bar {
+  position: fixed;
+  top: 0;
+  // width: 0px;
+  height: 5px;
+  background: linear-gradient(#44ccf5, #00f3ff);
+  z-index: 9999;
+}
