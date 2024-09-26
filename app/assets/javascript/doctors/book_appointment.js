@@ -1,4 +1,5 @@
 import { defaultErrorMessage, reqHeaders, showApiErrorResponse, showApiResponse, showErrorInNotificationCard, showSuccessInNotificationCard, roles } from "../general/helper_methods";
+import { removeSpinner, showSpinner } from "../general/spinner";
 import { generateTimeSlots } from "./generateTimeSlots";
 
 function validatePreviousDate(date, timeSlot) {
@@ -119,6 +120,7 @@ async function bookAppointmentSlots() {
   }
   
   try {
+    showSpinner();
     const path = `/api/v1/doctor_profiles/check_availability?doctor_id=${doctorId}&date=${date}`
     const response = await fetch(path)
     const reservedSlots = await response.json();
@@ -182,6 +184,8 @@ async function bookAppointmentSlots() {
     // showApiErrorResponse("Something went wrong please try again later")
     showErrorInNotificationCard("Something went wrong please try again later")
     console.log(error);
+  } finally {
+    removeSpinner()
   }
 };
 
