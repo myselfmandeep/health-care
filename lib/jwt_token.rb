@@ -33,6 +33,8 @@ class JwtToken
         [false, nil, user]
       rescue JWT::ExpiredSignature => e
         [true, "Token has been expired"]
+      rescue JWT::DecodeError => e
+        [true, "Session expired. Please log in to continue."]
       rescue JWT::ExpiredSignature => e
         [true, e.message, token]
       end

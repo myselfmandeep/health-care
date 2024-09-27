@@ -5,8 +5,14 @@ class NotificationChannel < ApplicationCable::Channel
   end
 
   def unsubscribed
+    stop_stream_for(target)
   end
 
+  def close_connection(data)
+    Broadcast.transmit(target, data.merge!({type: "user_sign_out"}))
+    # binding.pry
+  end
+  
   def receive(data)
   end
 

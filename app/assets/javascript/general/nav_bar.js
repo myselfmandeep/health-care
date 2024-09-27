@@ -1,6 +1,6 @@
 import { showApiResponse } from "./helper_methods";
 
-
+console.log("general/navbar");
 
 // notificationModal.addEventListener("click", (event) => { style.display = "none"
 //   event.target.;

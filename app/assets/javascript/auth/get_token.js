@@ -1,6 +1,7 @@
 
-class Auth {
+export class Auth {
   static removeToken() {
+    console.log("cred-cleared");
     localStorage.removeItem("token")
     localStorage.removeItem("user_id")
     localStorage.removeItem("role")

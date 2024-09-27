@@ -44,6 +44,8 @@ nav.nav-bar
       .nav-item              
         = link_to "Sign up", new_user_registration_path, class: "nav-link"
 
-        
-= javascript_include_tag "general/nav_bar", type: :module
-= javascript_include_tag "channels/index", type: :module
+- if user_signed_in?
+  = javascript_include_tag "general/nav_bar", type: :module 
+  = javascript_include_tag "channels/index", type: :module
+- else 
+  = javascript_include_tag "general/clear_cred_from_client", type: :module

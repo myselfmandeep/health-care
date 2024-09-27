@@ -9,6 +9,8 @@ module V1
       post "/create_chat" do
         chat = Chat.one_to_one_chat([params[:user_id], current_user.id])
 
+        # binding.pry
+
         if chat.save
           present chat, with: V1::Entities::Chats, current_user: current_user.id
         else

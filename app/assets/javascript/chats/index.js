@@ -15,7 +15,7 @@ const newChatBtn = document.querySelector(".new-chat-btn");
 const listUsers = document.querySelector(".list-users");
 const searchBtn = document.querySelector(".search-btn");
 let allowModalBodyScroll = true;
-
+let loadingChat  = false; // prevent from loading multiple chats at single chat screen
 
 const CHAT = {
   usersListing: () => document.querySelector(".users-listing"),
@@ -347,6 +347,7 @@ export async function startChatWithUserId(userId) {
   const user = latestUsersListing.querySelector(`[data-user-id="${userId}"]`);
   user.classList.add("active-chat");
   try {
+    loadingChat = true;
     showSpinner();
     const path = `/api/v1/chats/create_chat?user_id=${userId}`
     const response = await fetch(path, reqHeaders("POST"));
@@ -454,6 +455,7 @@ export async function startChatWithUserId(userId) {
   } catch (error) {
     defaultErrorMessage(error);
   } finally {
+    loadingChat = false;
     removeSpinner();
   }
 }
@@ -462,7 +464,9 @@ export async function createOrFindChat(event) {
   const cUser = event.currentTarget
   const userId = cUser.dataset.userId
 
-  startChatWithUserId(userId);
+  if (!loadingChat) {
+    startChatWithUserId(userId)
+  };
 };
 
 users.forEach(user => {

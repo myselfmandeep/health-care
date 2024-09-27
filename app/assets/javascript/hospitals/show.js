@@ -33,6 +33,7 @@ specs.forEach(function(spec) {
       const path = `/api/v1/hospitals/${hospitalId}/get_doctors?specialization_id=${specId}`;
       const response = await fetch(path);
       const doctors = await response.json();
+      console.log(doctors);
       if (response.ok) {
         if (doctors.length > 0) {
           [...tbody.children].forEach(row=> row.remove());
@@ -45,7 +46,7 @@ specs.forEach(function(spec) {
             <td>${doctor.end_at}</td>
             <td>${doctor.slot_duration} min</td>
             <td>
-            <a href="/doctors/${doctor.id}/book_appointment/">Check</a>
+            <a class="a-2-btn" href="/doctors/${doctor.id}/book_appointment/">Checkout</a>
             </td>
             </tr>`
           ).join("\n");
