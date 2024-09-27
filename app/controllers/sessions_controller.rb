@@ -24,6 +24,8 @@ class SessionsController < Devise::SessionsController
   end
   
   def destroy
+    id = current_user.try(:id)
+    Broadcast.transmit("notification_#{id}", {type: "user_sign_out"}) if id
     super
   end
 

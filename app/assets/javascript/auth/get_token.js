@@ -5,6 +5,7 @@ export class Auth {
     localStorage.removeItem("token")
     localStorage.removeItem("user_id")
     localStorage.removeItem("role")
+    localStorage.setItem("session", "sign_out")
   };
 };
 
@@ -17,6 +18,7 @@ async function getToken() {
     localStorage.setItem("token", data.token)
     localStorage.setItem("user_id", data.user_id)
     localStorage.setItem("role", data.role)
+    localStorage.removeItem("session");
   } else {
     Auth.removeToken();
     console.log("Something went wrong");

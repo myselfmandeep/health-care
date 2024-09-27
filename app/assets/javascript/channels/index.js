@@ -4,6 +4,11 @@ import { fadeOutElement, getBody, showSuccessInNotificationCard } from "../gener
 
 getToken();
 
+const logoutBtn = document.querySelector(".logout-button");
+logoutBtn.addEventListener("click", (e) => {
+  localStorage.setItem("session", "sign_out");
+})
+
 class Channel {
 
   static initiateChannel() {
@@ -59,18 +64,13 @@ class Channel {
   }
 };
 
-let notifyChannel;
 if (localStorage.user_id) { 
   const subscription = Channel.initiateChannel();
-  notifyChannel = subscription;
-  window.sub = subscription;
   subscription.connected = function () {
     console.log("/cable connection successfully");
   };
 
   subscription.received = function (data) {
-    // console.log(data);
-  
    switch (data.type) {
     case "new_message":
       const chatScreen = document.querySelector(`[active-chat="${data.chat_id}"]`);
@@ -86,16 +86,10 @@ if (localStorage.user_id) {
     case "ping":
       console.log(data);
       break
-    case "close_connection":
-      const timestampid = (new Date()).getTime();
-      subscription.perform("close_connection", {timestampId: timestampid})
-      localStorage.setItem("timestamp_id", timestampid)
-      break
     case "user_sign_out":
-      if (data.timestampId == localStorage.timestamp_id) {
+      if (localStorage.getItem("session") == "sign_out") {
         subscription.unsubscribe();
-        console.log("unsubscribed successfully");
-        // localStorage.removeItem("timestamp_id");
+        // console.log("unsubscribed successfully");
       }
     break;
     default:
@@ -104,9 +98,3 @@ if (localStorage.user_id) {
    }
   };
 };
-
-// getBody().addEventListener("click", () => {notifyChannel})
-// setTimeout(() => {
-// }, 1500);
-console.log(notifyChannel);
-export { notifyChannel }
