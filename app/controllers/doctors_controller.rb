@@ -41,7 +41,13 @@ class DoctorsController < ApplicationController
   end
 
   def dashboard
+    mark_active_tab("dashboard")
     @appointments = @doctor.doctor.doctor_appointments.where(date: Date.today, status: :confirmed).order(:timeslot)
+    # @appointments = Appointment.confirmed
+    # @feedbacks = Feedback.includes({appointment: [:doctor]}, :user).where(appointments: {doctor_id: @doctor.doctor_id})
+    # params[:per_page] = params[:per_page] || 5
+    @feedbacks = Feedback.includes(:user, :appointment).where(appointment_id: @doctor.doctor.doctor_appointments.pluck(:id)).paginate(will_paginate)
+    @like_dislikes = @doctor.like_dislikes
   end
 
   def book_appointment

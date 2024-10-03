@@ -1,0 +1,62 @@
+.feedback-container {
+  // border-left: 5px solid #cbcbcb;
+  border-radius: 5px;
+  padding-top: 12px;
+  margin-bottom: 12px;
+
+  .feedback {
+    position: relative;
+    /* border: 1px solid blue; */
+    border-left: 2px solid #ff9a9a;;
+    margin-left: 12px;
+    padding: 4px 8px;
+    margin-top: 4px;
+    background: #f1eeee;
+    border-radius: 5px;
+
+    .has-appt-on {
+      background: #b5b5b5;
+      color: black;
+      padding: 3px;
+      font-size: 13px;
+      color: black;
+      /* background: black; */
+      /* display: inline-block; */
+      font-family: monospace;
+    }
+    
+    .feedback-by {
+      display: flex;
+      gap: 10px;
+      background: #ebebeb;
+      padding: 8px;
+      align-items: center;
+
+      .user-grav {
+        padding: 12px;
+        background: #ff5e5e;
+        color: white;
+        border-radius: 50%;
+        height: 50px;
+        width: 50px;
+        text-align: center;
+      }
+
+      .user-name {
+        font-size: 14px;
+        padding: 12px;
+      }
+
+    }
+
+    .fb-body {
+      background: white;
+      padding: 12px 8px;
+    }
+
+    .left-fb-at {
+      margin-top: 12px;
+      text-align: end;
+    }
+  }
+}

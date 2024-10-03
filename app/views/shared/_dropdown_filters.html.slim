@@ -1,0 +1,11 @@
+.col-1.dropdown-opts-container 
+  .filter-btn Filter
+  .hide-dropdown
+  .dropdown-options 
+    .links 
+      / -binding.pry
+      - links.each do |link|
+
+        = link_to "#{link.try(:first)}", "#{link.try(:last)}"
+
+= javascript_include_tag "devise/shared/dropdown_filters", type: :module

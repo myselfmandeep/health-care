@@ -2,7 +2,8 @@ import { cancelBtn } from "./cancel_button";
 import { confirmBtn } from "./confirm_button";
 import { rejectBtn } from "./reject_button";
 import { confirmationToolip } from "./confirmation_toolip";
-import { roles, showErrorInNotificationCard } from "../../general/helper_methods";
+import { defaultErrorMessage, roles, showErrorInNotificationCard } from "../../general/helper_methods";
+import { feedbackBtn } from "./feedback_btn";
 
 export function removeAnyExistingToolip() {
   const toolip = document.querySelector(".confirmation-toolip");
@@ -26,6 +27,8 @@ export function seeDetailModal(props={}, parentElement) {
   const medicalHistory = props.medicalHistory || nA;
   const apptId = props.id;
   const status = props.status;
+  const code = props.apptCode;
+  const hasFeedback= props.hasFeedback;
 
   let cancellationReason = props.cancellationReason;
 
@@ -33,12 +36,14 @@ export function seeDetailModal(props={}, parentElement) {
   const isRejected = status === "rejected";
   const isConfirmed = status === "confirmed";
   const isRequested = status === "requested";
+  const isFulfilled = status === "fulfilled";
   // const isSuperAdminOrDoctor = roles.isDoctor() || roles.isSuperAdmin()
   const isSuperAdminOrDoctor = roles.isDoctor()
   
   let appointmentConfirmationBtn = "";
   let appointmentRejectionBtn = "";
   let appointmentCancellationBtn = "";
+  let leaveFeebackBtn = "";
 
   if (!isCancelled && isRequested && isSuperAdminOrDoctor) {
     appointmentConfirmationBtn = `${confirmBtn({
@@ -55,6 +60,12 @@ export function seeDetailModal(props={}, parentElement) {
     appointmentConfirmationBtn = `${cancelBtn({
       id: apptId
     })}`
+  };
+
+  if (isFulfilled && !hasFeedback && roles.isPatient()) {
+    leaveFeebackBtn = feedbackBtn({
+      apptCode: code
+    });
   };
   if (isCancelled) {
     cancellationReason = `<div class="detail">
@@ -100,6 +111,7 @@ export function seeDetailModal(props={}, parentElement) {
                         ${appointmentConfirmationBtn}
                         ${appointmentRejectionBtn}
                         ${appointmentCancellationBtn}
+                        ${leaveFeebackBtn}
                       </div>
                     </div>
                   </div>`;
@@ -110,6 +122,7 @@ export function seeDetailModal(props={}, parentElement) {
   const rejectActionBtn = document.querySelector(`[data-appt-reject-id="${apptId}"]`);
   const cancelActionBtn = document.querySelector(`[data-appt-cancel-id="${apptId}"]`);
   const reasonField = document.querySelector(".reason-field");
+  const feedback = document.querySelector(`[data-appt-code="${code}"]`);
   
   if(!!cancelActionBtn) {
     cancelActionBtn.addEventListener("click", function(event) {
@@ -158,5 +171,17 @@ export function seeDetailModal(props={}, parentElement) {
       }, event.currentTarget)
     });
   };
+
+  if (!!feedback) {
+    feedback.addEventListener("click", function(event) {
+      const uniqApptCode = event.target.dataset.apptCode;
+
+      if (!uniqApptCode) {
+        defaultErrorMessage();
+      } else {
+        location.href = `appointments/${uniqApptCode}/feedback`;
+      };
+    });
+  }
 
 }

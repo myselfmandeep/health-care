@@ -59,9 +59,10 @@ const buildPath = function () {
 
   return path;
 }
-
+let loadingAppt = false;
 const renderAppointmentInDom = async function(path, removePrevious=true) {
   try {
+    loadingAppt = true
     showSpinner();
     // const path = "/api/v1/appointments"
     const response = await fetch(path, reqHeaders("GET"));
@@ -92,6 +93,8 @@ const renderAppointmentInDom = async function(path, removePrevious=true) {
     removeSpinner();
     defaultErrorMessage();
     console.log(error);
+  } finally {
+    loadingAppt = false;
   }
 
 };
@@ -126,7 +129,7 @@ tableContainer.addEventListener("scroll", async function(event) {
     console.log("Not scrollable");
     return;
   }
-  if ((containerHeight * 0.98) <= scrolledHeight && allowScroll) {
+  if ((containerHeight * 0.98) <= scrolledHeight && allowScroll & !loadingAppt) {
     console.log("you touch the bottom");
     
     pageNo++

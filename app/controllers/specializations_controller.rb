@@ -2,8 +2,20 @@ class SpecializationsController < ApplicationController
   include DoctorCount
 
   def index
-    @hosp_count = DoctorProfile.joins(:department).group("departments.hospital_id").count
-    @specializations = scope.list.order(:name).paginate(will_paginate)
+    mark_active_tab("specializations") 
+    @hosp_count = Hospital.joins(:departments).group("departments.specialization_id").count
+    @dr_count = DoctorProfile.joins(:department).group("departments.specialization_id").count
+
+    if current_user && current_user.doctor?
+      @dr_count = DoctorProfile.joins(:department).where("departments.hospital_id = ?", current_user.doctor_profile.department.hospital_id).group("departments.specialization_id").count
+    end
+    if params[:without_dr] == "false"
+      @specializations = scope.list.joins(departments: :doctor_profiles)
+    else
+      @specializations = scope.list
+    end
+
+    @specializations = @specializations.order(:name).paginate(will_paginate)
   end
 
   def hospitals

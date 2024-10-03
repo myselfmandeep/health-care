@@ -6,6 +6,7 @@
       #reset-filter-button.btn.btn-secondary Reset
     .col-1
       #search-button.btn.btn.btn-primary Search
+    = render partial: "shared/dropdown_filters", locals: {links: [["Hide Hospitals with 0 Drs", hospitals_path(without_dr: true)]]}
   .row 
     .col-8
       - if @hospitals.present?

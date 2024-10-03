@@ -35,6 +35,8 @@ module V1
           appointments = appointments.cancelled
         when "rejected"
           appointments = appointments.rejected
+        when "fulfilled"
+          appointments = appointments.fulfilled
         when "upcoming"
           appointments = appointments.where("date > ? AND status = ?", Date.today, Appointment::STATUS[:confirmed])
         else 
@@ -85,10 +87,11 @@ module V1
         
         desc "update the status of appointment"
         params do
-          requires :status, type: String, values: %w[confirmed rejected cancelled], desc: "Appointment ID"
+          requires :status, type: String, values: %w[confirmed rejected cancelled fulfilled], desc: "Appointment ID"
           optional :cancellation_reason, type: String, desc: "Cancellation reason of appointment"
           given :cancellation_reason do
             requires :cancelled_at, type: Time, desc: "Cancellation time", default: -> { Time.now }
+            requires :cancelled_by, type: String, values: %w[patient doctor], desc: "Doctor OR Patient"
           end
         end
         put "/change_status" do

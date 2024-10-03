@@ -6,6 +6,13 @@
       #reset-filter-button.btn.btn-secondary Reset
     .col-1
       #search-button.btn.btn.btn-primary Search
+    = render partial: "shared/dropdown_filters", locals: {links: [["Hide Specializations with 0 Dr", specializations_path(without_dr: false)]]}
+    / .col-1.dropdown-opts-container 
+    /   .filter-btn Filter
+    /   .hide-dropdown
+    /   .dropdown-options 
+    /     .links 
+    /       = link_to "Hide Specializations with 0 Dr", specializations_path(without_dr: false)
 
   .row 
     .col-8
@@ -25,10 +32,11 @@
                 td = specialization.name
                 - unless is_doctor?
                   td 
-                    = link_to "Get List", hospitals_specialization_path(specialization), class: "a-2-btn min-width-50px"
-                    / = link_to "#{hospital_count(@hosp_count.try(:dig, specialization.id))}", hospitals_specialization_path(specialization), class: "a-2-btn min-width-85px"
+                    / = link_to "Get List", hospitals_specialization_path(specialization), class: "a-2-btn min-width-50px"
+                    = link_to "#{hospital_count(@hosp_count.try(:dig, specialization.id))}", hospitals_specialization_path(specialization), class: "a-2-btn min-width-85px"
                 td 
-                  = link_to "Get List", doctors_specialization_path(specialization), class: "a-2-btn"
+                  / = link_to "Get List", doctors_specialization_path(specialization), class: "a-2-btn"
+                  = link_to "#{doctor_count(@dr_count.try(:dig, specialization.id))}", doctors_specialization_path(specialization), class: "a-2-btn"
   
         = render_pagination(@specializations)
       - else 

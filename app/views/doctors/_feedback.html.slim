@@ -1,0 +1,9 @@
+.feedback 
+  .has-appt-on = "#{feedback.appointment.timeslot} on #{feedback.appointment.date}"
+  .feedback-by 
+    .user-grav = feedback.user.full_name[0]
+    .user-name = "#{feedback.user.full_name}" 
+  .fb-body 
+    p = feedback.body
+  .left-fb-at 
+    = "#{am_pm_notation(feedback.created_at)}"

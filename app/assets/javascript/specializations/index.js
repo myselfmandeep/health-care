@@ -7,6 +7,9 @@ const specializationSearchField  = document.querySelector("#specialization-searc
 const specializations = [...document.querySelectorAll("[data-specialization-name]")];
 const resetFilterBtn = document.querySelector("#reset-filter-button");
 const searchBtn = document.querySelector("#search-button");
+// const filterBtn = document.querySelector(".filter-btn");
+// const hideDropDown = document.querySelector(".hide-dropdown");
+// const dropdownOpts = document.querySelector(".dropdown-options");
 
 specializationSearchField.value = "";
 const hideElement = function(element) {
@@ -50,3 +53,17 @@ searchBtn.addEventListener("click", (event) => {
     removeSpinner()
   }
 });
+
+// filterBtn.addEventListener("click", (e) => {
+//   console.log("hello filterbtn");
+//   hideDropDown.style.display = "block";
+//   dropdownOpts.style.display = "block";
+// })
+
+// hideDropDown.addEventListener("click", (e) => {
+//   console.log("hello hiddorpdown");
+//   if (e.target == hideDropDown) {
+//     hideDropDown.style.display = "none";
+//     dropdownOpts.style.display = "none";
+//   }
+// })

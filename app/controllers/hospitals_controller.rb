@@ -5,7 +5,15 @@ class HospitalsController < ApplicationController
   before_action :hospital_dr_count, only: %i[index search]
 
   def index
-    @hospitals = Hospital.order(:name).paginate(pagination(20))
+    params[:tab] = "hospitals"
+
+    if params[:without_dr] == "true"
+      hosps = Hospital.joins(:doctor_profiles)
+    else
+      hosps = Hospital
+    end
+    
+    @hospitals = hosps.order(:name).paginate(pagination(20))
   end
 
   def departments

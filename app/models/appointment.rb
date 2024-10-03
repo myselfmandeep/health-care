@@ -2,11 +2,13 @@ class Appointment < ApplicationRecord
 
   belongs_to :doctor, class_name: "User"
   belongs_to :patient, class_name: "User"
+  has_many :feedbacks
 
   delegate :full_name, to: :doctor, prefix: true
   delegate :full_name, to: :patient, prefix: true
   
-  enum status: [:requested, :confirmed, :rejected, :cancelled]
+  enum status: [:requested, :confirmed, :rejected, :cancelled, :fulfilled]
+  enum cancelled_by: [:doctor, :patient]
 
   STATUS = self.statuses.freeze
 
@@ -14,6 +16,8 @@ class Appointment < ApplicationRecord
   validates :cancellation_reason, presence: true, if: -> (appt) { appt.cancelled? }
   validate :is_taken_slot, on: :create
 
+  before_create -> { self.appt_code = SecureRandom.hex(10) }  
+  after_update :send_fulfill_mail, if: :saved_change_to_status?
   
   def patient_has_appointment_for_requested_date
     appointment = patient.appointment_on_specific_date(date).first
@@ -42,6 +46,12 @@ class Appointment < ApplicationRecord
     if appointments.present?
       errors.add(:base, "Slot is already booked by someone") 
     end
+  end
+
+  def send_fulfill_mail
+    return unless fulfilled?
+    
+    AppointmentMailer.feedback_mail(self).deliver_now rescue false
   end
   
 end

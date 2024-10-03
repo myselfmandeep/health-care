@@ -1,6 +1,7 @@
 module V1
   class DoctorProfiles < Grape::API
-
+    # mount({Votes => "/doctor"}, with: {resource: "DoctorProfile"})
+    
     desc "collection routes of doctors"
     resource :doctor_profiles do
       
@@ -32,12 +33,14 @@ module V1
 
       desc "member routes of doctors"
       namespace ":id" do
+        mount Votes, with: {resource: "DoctorProfile"}
+        
         params do
           requires :id, type: Integer, desc: "Doctor ID"
         end
 
         before do
-          @doctor = Doctor.find(params[:id])
+          @doctor = DoctorProfile.find(params[:id])
         end
         
         desc "retrun the single doctor record"

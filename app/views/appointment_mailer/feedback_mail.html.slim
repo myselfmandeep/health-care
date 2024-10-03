@@ -1,0 +1,4 @@
+.appointment-fulfilled
+  h1 = "Your appointment has been marked fulfilled by the Dr #{@doctor.full_name}"
+  p  = "Please shared your valueable feedback for Dr #{@doctor.full_name}"
+  = link_to "Shared Feedback", appt_feedback_appointments_url(@appointment.appt_code)

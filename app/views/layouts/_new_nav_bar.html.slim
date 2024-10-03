@@ -1,20 +1,20 @@
 nav.nav-bar 
   .nav-partitions 
-    .nav-item.home
+    .nav-item.home[class="#{active_nav_tab("root")}"]
       = link_to "Home", root_path, class: "nav-link"
     - unless current_user.try(:doctor?)
-      .nav-item.hospitals 
+      .nav-item.hospitals[class="#{active_nav_tab("hospitals")}"] 
         = link_to "Hospitals", hospitals_path, class: "nav-link"
-    .nav-item.specialization 
+    .nav-item.specialization[class="#{active_nav_tab("specializations")}"]  
       = link_to "Specializations", specializations_path, class: "nav-link"
     - if user_signed_in?
-      .nav-item.nav-appts
+      .nav-item.nav-appts[class="#{active_nav_tab("appts")}"]
         = link_to "Appointments", appointments_path , class: "nav-link"
       - if current_user.super_admin?
-        .nav-item.dashboard 
+        .nav-item.dashboard[class="#{active_nav_tab("dashboard")}"] 
           = link_to "Dashboard", su_dashboard_path , class: "nav-link"
       - if current_user.doctor?
-        .nav-item.dashboard 
+        .nav-item.dashboard[class="#{active_nav_tab("dashboard")}"] 
           = link_to "Dashboard", dashboard_doctor_path(current_user.doctor_profile) , class: "nav-link"
     
   .nav-partitions 
@@ -39,9 +39,9 @@ nav.nav-bar
                 = button_to "Logout", destroy_user_session_path, method: :delete, class: "profile-item logout-button default-btn"
     
     - else 
-      .nav-item              
+      .nav-item[class="#{active_nav_tab("sign_in")}"]
         = link_to "Sign in", new_user_session_path, class: "nav-link"
-      .nav-item              
+      .nav-item[class="#{active_nav_tab("sign_up")}"]                
         = link_to "Sign up", new_user_registration_path, class: "nav-link"
 
 - if user_signed_in?

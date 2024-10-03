@@ -3,6 +3,11 @@ class SessionsController < Devise::SessionsController
   after_action :set_role, only: %i[create]
   after_action :remove_role, only: %i[destroy]
 
+  def new
+    params[:tab] = "sign_in"
+    super
+  end
+  
   def create
     self.resource = warden.authenticate!(auth_options)
     

@@ -62,4 +62,8 @@ class ApplicationController < ActionController::Base
     session[:role] = nil
   end
 
+  def mark_active_tab(tab)
+    params[:tab] = tab
+  end
+
 end

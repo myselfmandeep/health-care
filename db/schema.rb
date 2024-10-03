@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_09_26_063001) do
+ActiveRecord::Schema[7.2].define(version: 2024_10_02_085548) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -26,6 +26,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_26_063001) do
     t.string "symptoms", default: "N/A"
     t.datetime "cancelled_at"
     t.string "cancellation_reason"
+    t.string "appt_code"
+    t.integer "cancelled_by"
     t.index ["doctor_id"], name: "index_appointments_on_doctor_id"
     t.index ["patient_id"], name: "index_appointments_on_patient_id"
   end
@@ -55,6 +57,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_26_063001) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "last_message_received_at"
+    t.integer "state", default: 0
   end
 
   create_table "departments", force: :cascade do |t|
@@ -81,6 +84,18 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_26_063001) do
     t.datetime "updated_at", null: false
     t.index ["department_id"], name: "index_doctor_profiles_on_department_id"
     t.index ["doctor_id"], name: "index_doctor_profiles_on_doctor_id"
+  end
+
+  create_table "feedbacks", force: :cascade do |t|
+    t.text "body"
+    t.bigint "appointment_id"
+    t.bigint "user_id"
+    t.bigint "parent_feedback_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["appointment_id"], name: "index_feedbacks_on_appointment_id"
+    t.index ["parent_feedback_id"], name: "index_feedbacks_on_parent_feedback_id"
+    t.index ["user_id"], name: "index_feedbacks_on_user_id"
   end
 
   create_table "hospitals", force: :cascade do |t|
@@ -129,6 +144,17 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_26_063001) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "votes", force: :cascade do |t|
+    t.bigint "voteable_id"
+    t.string "voteable_type"
+    t.integer "reaction", default: 0
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_votes_on_user_id"
+    t.index ["voteable_id", "voteable_type"], name: "index_votes_on_voteable_id_and_voteable_type"
+  end
+
   add_foreign_key "appointments", "users", column: "doctor_id"
   add_foreign_key "appointments", "users", column: "patient_id"
   add_foreign_key "chat_clears", "messages"
@@ -136,6 +162,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_26_063001) do
   add_foreign_key "chat_participants", "users", column: "participant_id"
   add_foreign_key "departments", "users", column: "head_of_department_id"
   add_foreign_key "doctor_profiles", "users", column: "doctor_id"
+  add_foreign_key "feedbacks", "feedbacks", column: "parent_feedback_id"
   add_foreign_key "messages", "chat_participants", column: "sender_id"
   add_foreign_key "notifications", "users"
 end

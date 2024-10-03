@@ -63,38 +63,40 @@ class Channel {
     showSuccessInNotificationCard(data.message, 3500)
   }
 };
+setTimeout(() => {
 
-if (localStorage.user_id) { 
-  const subscription = Channel.initiateChannel();
-  subscription.connected = function () {
-    console.log("/cable connection successfully");
-  };
-
-  subscription.received = function (data) {
-   switch (data.type) {
-    case "new_message":
-      const chatScreen = document.querySelector(`[active-chat="${data.chat_id}"]`);
-      const newChatBtn = document.querySelector(".new-chat-btn");
-      if (!chatScreen) {
-        showSuccessInNotificationCard(`You have received new message from ${data.sender.name}`);
-      }
-      if (!!newChatBtn) {
-        const chatUser = document.querySelector(`[data-chat-id="${data.chat_id}"]`);
-        newChatBtn.insertAdjacentElement("afterend", chatUser)
-      }
+  if (localStorage.user_id) { 
+    const subscription = Channel.initiateChannel();
+    subscription.connected = function () {
+      console.log("/cable connection successfully");
+    };
+  
+    subscription.received = function (data) {
+     switch (data.type) {
+      case "new_message":
+        const chatScreen = document.querySelector(`[active-chat="${data.chat_id}"]`);
+        const newChatBtn = document.querySelector(".new-chat-btn");
+        if (!chatScreen) {
+          showSuccessInNotificationCard(`You have received new message from ${data.sender.name}`);
+        }
+        if (!!newChatBtn) {
+          const chatUser = document.querySelector(`[data-chat-id="${data.chat_id}"]`);
+          newChatBtn.insertAdjacentElement("afterend", chatUser)
+        }
+        break;
+      case "ping":
+        console.log(data);
+        break
+      case "user_sign_out":
+        if (localStorage.getItem("session") == "sign_out") {
+          subscription.unsubscribe();
+          // console.log("unsubscribed successfully");
+        }
       break;
-    case "ping":
-      console.log(data);
-      break
-    case "user_sign_out":
-      if (localStorage.getItem("session") == "sign_out") {
-        subscription.unsubscribe();
-        // console.log("unsubscribed successfully");
-      }
-    break;
-    default:
-      Channel.displayNotification(data);
-      break;
-   }
+      default:
+        Channel.displayNotification(data);
+        break;
+     }
+    };
   };
-};
+}, 1500)

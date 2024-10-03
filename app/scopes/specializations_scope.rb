@@ -7,7 +7,7 @@ class SpecializationsScope < ApplicationScope
   end
 
   def eager_load
-    @scope ||= Specialization.includes(:departments)
+    @scope ||= Specialization.includes(departments: :doctor_profiles)
   end
   
 end

@@ -3,6 +3,11 @@ class RegistrationsController < Devise::RegistrationsController
   after_action :set_role, only: %i[create]
   after_action :remove_role, only: %i[destroy]
 
+  def new
+    params[:tab] = "sign_up"
+    super
+  end
+  
   def create
     user = build_resource(sign_up_params)
 

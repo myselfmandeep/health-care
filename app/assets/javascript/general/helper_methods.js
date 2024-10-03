@@ -9,10 +9,10 @@ export const fadeOutElement = function(element, interval = 2000) {
   const fadeOut = setInterval(() => {
     if (opacity > 0) {
       opacity -= step;
-      element.style.opacity = opacity;
+      if (!!element) element.style.opacity = opacity;
     } else {
       clearInterval(fadeOut);
-      element.remove();
+      if (!!element) element.remove();
     }
   }, fadeStepTime);
 };
@@ -43,7 +43,9 @@ const parseErrorMessages = function(errs, result=[]) {
       return parseErrorMessages(Object.values(errs), errors);
     };
     errs.forEach(element => {
-      if (isArray(element)) {
+      if (element == null) {
+        return;
+      } else if (isArray(element)) {
         return parseErrorMessages(element, errors);
       } else if (isObject(element)) {
         return parseErrorMessages(Object.values(element), errors);
@@ -192,3 +194,7 @@ export const chatSeeker = function(event) {
 
   location.href = "/chats";
 }
+
+export const get_user_id = function() {
+  return localStorage.user_id
+};

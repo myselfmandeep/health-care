@@ -29,7 +29,9 @@ export const eventHandler = {
           medicalHistory: appt.medical_history,
           symptoms: appt.symptoms,
           status: appt.status,
-          cancellationReason: appt.cancellation_reason
+          cancellationReason: appt.cancellation_reason,
+          apptCode: appt.code,
+          hasFeedback: appt.has_feedback
         }, body);
         
         closeModal();
@@ -56,7 +58,7 @@ export const eventHandler = {
           defaultErrorMessage();
           return;
         }
-        path = path.concat(`&cancellation_reason=${reason}&cancelled_at=${new Date()}`);
+        path = path.concat(`&cancellation_reason=${reason}&cancelled_at=${new Date()}&cancelled_by=${localStorage.role}`);
       };
       
       const response = await fetch(path, reqHeaders("PUT"))

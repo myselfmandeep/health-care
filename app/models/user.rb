@@ -7,7 +7,7 @@ class User < ApplicationRecord
   # ===== ENUMS =====
   enum state: { active: 0, suspended: 1, removed: 2 }
   enum role:  [:patient, :doctor, :admin, :super_admin]
-  enum gender: [:male, :female, :other]
+  enum gender: { male: 0, female: 1, other: 2 }
   
   # ===== CONSTANTS =====
   GENDERS = self.genders.keys.freeze
@@ -23,6 +23,7 @@ class User < ApplicationRecord
   has_many :chat_clears, class_name: "ChatClear", foreign_key: :cleared_by
   # has_many :messages, class_name: "Message", foreign_key: "sender_id"
   has_many :chats, through: :chat_participants
+  has_many :doc_feedbacks, through: :doctor_appointments, source: :feedbacks
   
   accepts_nested_attributes_for :doctor_profile
 
@@ -91,6 +92,32 @@ class User < ApplicationRecord
 
   def get_role
     User.roles[self.role]
+  end
+
+  # ===== CLASS METHODS =====
+
+  class << self
+    
+    def vote_for(resource, user=nil)
+      return false unless user
+      
+      votes = resource.votes
+      vote = votes.find_by(user: user.id)
+      return false unless vote
+      
+      vote.like? ? "liked" : "disliked"
+    end
+
+    # def downvote_for(resource, user=nil)
+    #   return false unless user
+
+    #   votes = resource.votes
+    #   vote = votes.find_by(user: user.id)
+    #   return false unless vote
+      
+    #   vote.is_liked?
+    # end
+    
   end
  
 end

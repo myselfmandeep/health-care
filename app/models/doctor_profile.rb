@@ -3,6 +3,8 @@ class DoctorProfile < ApplicationRecord
   # ===== ASSOSIATIONS =====
   belongs_to :doctor, class_name: "User", optional: true
   belongs_to :department
+  has_many :votes, as: :voteable
+  has_many :voters, through: :votes, source: :user
   
   # ===== DELEGATIONS =====
   delegate :full_name, to: :doctor, prefix: true
@@ -39,6 +41,11 @@ class DoctorProfile < ApplicationRecord
       Dr. #{doctor_full_name} currently practices in the #{department.specialization_name} department, offering consultations from #{start_at} to #{end_at}.
       They ensure focused attention during appointments, with each consultation slot lasting #{slot_duration} minutes, allowing ample time to address patient concerns thoroughly.
     BIO
+  end
+
+  def like_dislikes
+    v = votes.group(:reaction).count
+    {likes: (v["like"] || 0), dislikes: (v["dislike"] || 0)}.with_indifferent_access
   end
 
   private

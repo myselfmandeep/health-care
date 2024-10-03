@@ -69,5 +69,29 @@ module GeneralHelper
   def render_pagination(resource)
     render partial: "shared/pagination", locals: {resource: resource}
   end
+
+  def is_online(user_id) 
+    Broadcast.transmit("notification_#{user_id}", {type: "ping"}) == 1 ? "Online" : "Offline" 
+  end
+
+  def am_pm_notation(time)
+    time.strftime("%d-%b-%g %I:%M %P")
+  end
+
+  def active_nav_tab(tab)
+    params[:tab] == tab ? "active-nav-tab" : ""
+  end
+
+  def is_liked(resource)
+    result = User.vote_for(resource, current_user)
+
+    result == "liked" ? "fa-solid" : "fa-regular"
+  end
+  
+  def is_disliked(resource)
+    result = User.vote_for(resource, current_user)
+    
+    result == "disliked" ? "fa-solid" : "fa-regular"
+  end
   
 end

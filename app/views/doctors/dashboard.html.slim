@@ -123,6 +123,18 @@
     .dashboard-row
       .dr-dashboard-pic  
         = image_tag "#{dr_image(@doctor)}", alt: "dr image", class: "profile-pic"
+        .votes.mg-t-12
+          .likes[data-id="#{@doctor.id}" data-liked="true"]
+            span.like-count = @like_dislikes[:likes]
+            / = binding.pry
+            / i class="fa-#{User.upvote_for(@doctor, current_user) ? "solid" : "regular"} fa-thumbs-up"
+            i class="#{is_liked(@doctor)} fa-thumbs-up"
+            / <i class="fa-solid fa-thumbs-up"></i>
+          .dislikes[data-id="#{@doctor.id}" data-liked="false"]
+            span.dislike-count = @like_dislikes[:dislikes]
+            / i class="fa-#{User.upvote_for(@doctor, current_user) ? "regular" : "solid"} fa-thumbs-down"
+            i class="#{is_disliked(@doctor)} fa-thumbs-down"
+            / <i class="fa-solid fa-thumbs-down"></i>
       .doctor-details 
         h5.dr-name = "Dr #{@doctor.doctor_full_name} (#{@doctor.highest_qualification})" 
         p.dr-gender = "#{user_pronoun(@doctor.doctor.gender)}"
@@ -154,5 +166,16 @@
     - else
       p.no-appt-today 
         | You have no appointments for today
-
+  
+  p.heading-all-over.mg-t-12 Reviews
+  - if @feedbacks.present? 
+    .feedback-container
+      - @feedbacks.each do |feedback|
+        = render partial: "doctors/feedback", locals: {feedback: feedback}
+    .pagination-container 
+      = will_paginate @feedbacks, class: "pagination"
+  - else 
+    p.no-appt-today 
+      | No reviews
+    
 = javascript_include_tag "doctors/new_dashboard", type: :module

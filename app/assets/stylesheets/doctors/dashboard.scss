@@ -1,3 +1,11 @@
+@mixin cursor-pointer {
+  cursor: pointer;
+  cursor: pointer;
+  background: #d1d1d1;
+  padding: 5px;
+  border-radius: 12px;
+}
+
 .profile-picture {
 }
 
@@ -190,6 +198,21 @@
           border-radius: 50%;
           
         }
+
+        .votes {
+          display: flex;
+          gap: 10px;
+          justify-content: space-around;
+          font-size: 24px;
+
+          .likes {
+            @include cursor-pointer
+          }
+          
+          .dislikes {
+            @include cursor-pointer
+          }
+        }
       }
       
       .doctor-details {
@@ -282,6 +305,7 @@
       background: #ededed;
       font-size: 14px;
       margin-top: 6px;
+      text-align: justify;
     }
 
   }

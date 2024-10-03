@@ -79,9 +79,12 @@ const chatHTML = {
     `;
   },
   chatUserHTML: (user) => {
+    // debugger;
     return `
       <div class="chat-user" data-user-id="${user.id}">
         ${user.name}
+        <em class="user-online" data-online-user-id="${user.id}">
+        </em>
       </div>
     `;
   },
@@ -531,7 +534,8 @@ const fetchUsersRecord = async function(page=1) {
               AC.classList.remove("active-chat");
             }
             const html = `<div class="chat-user active-chat" data-user-id="${id}">${name}</div>`
-            newChatBtn.insertAdjacentHTML("afterend", html)
+            // newChatBtn.insertAdjacentHTML("afterend", html)
+            newChatBtn.insertAdjacentHTML("afterend", chatHTML.chatUserHTML({id: id, name: name}))
             const newUser = document.querySelector(".users-listing").querySelector(`[data-user-id="${id}"]`);
             newUser.addEventListener("click", createOrFindChat);
           }
@@ -664,3 +668,32 @@ newChatBtn.addEventListener("click", function(event) {
   });
   fetchUsersRecord()
 });
+
+// APPEARANCE OF USERS
+
+// const selectUsers = function() {
+//   return [...document.querySelectorAll(".user-online")]
+// }
+
+const appearanceChannel = createConsumer().subscriptions.create({channel: "AppearanceChannel", user_id: localStorage.user_id}, {
+  connected: function() {
+    console.log("connected");
+  },
+  
+  received: function (data) {
+    for(let id in data) {
+      const onlineElm = document.querySelector(`[data-online-user-id="${id}"]`);
+ 
+      onlineElm.textContent = `(${data[id] ? "Online" : "Offline"})`;
+    }
+  }
+})
+
+setInterval(() =>{
+  const selectUsers = function() {
+    return [...document.querySelectorAll(".user-online")]
+  }
+  // const ids = ;
+  // console.log(selectUsers());
+  appearanceChannel.send({users: selectUsers().map(user => user.dataset.onlineUserId)});
+}, 3000)

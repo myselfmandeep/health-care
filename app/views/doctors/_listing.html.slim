@@ -52,7 +52,7 @@
 
 /         / = link_to "Profile", dashboard_doctor_path(doctor), class: "doctor-card-btn chat-with-doctor"
 
-.col-9 data-doctor-name="#{doctor.doctor_full_name}" data-doctor-specialization="#{doctor.department.specialization.name}" data-hospital="#{doctor.department.hospital.name}"
+.col-9.doctor-card-row data-doctor-name="#{doctor.doctor_full_name}" data-doctor-specialization="#{doctor.department.specialization.name}" data-hospital="#{doctor.department.hospital.name}"
   .card.doctor-card.default-border
     .card-body
       .row

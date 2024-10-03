@@ -17,6 +17,7 @@ module V1
     mount V1::Chats
     mount V1::Messages
     mount V1::Users
+    mount V1::Feedbacks
 
     mount V1::SuperAdmin::Base
 

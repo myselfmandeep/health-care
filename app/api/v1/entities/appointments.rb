@@ -11,6 +11,10 @@ module V1
       expose :symptoms, expose_nil: false, documentation: { type: "String", desc: "symptoms patient have" }
       expose :cancellation_reason, expose_nil: false, documentation: { type: "String", desc: "Reason of appointment cancellation" }
       expose :patient_id, documentation: {type: Integer, desc: "Patient IDs"}
+      expose :appt_code, as: :code, documentation: {type: String, desc: "Uniq Appointment Code"}, if: -> (appt,_opts) { appt.fulfilled? }
+      expose :has_feedback, documentation: {type: String, desc: "Uniq Appointment Code"}, if: -> (appt,_opts) { appt.fulfilled? } do |appt, _opts|
+        appt.feedbacks.any?
+      end
     end
   end
 end

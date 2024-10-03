@@ -19,7 +19,7 @@ class AppointmentsScope < ApplicationScope
   end
 
   def eager_load
-    @appts ||= Appointment.includes(:doctor, :patient)
+    @appts ||= Appointment.includes(:doctor, :patient, :feedbacks)
   end
   
 end

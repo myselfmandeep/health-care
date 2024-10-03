@@ -1,0 +1,9 @@
+.feedback-page 
+  .create-feedback-container
+    .dr-name = "Dr #{@appt.doctor.full_name}"
+    .appt-time = "#{@appt.timeslot} on #{@appt.date}"
+    textarea.mg-t-12.fb-text[placeholder="Leave a feedback for doctor"]
+    / input#appt-id[type="hidden" value="#{@appt.id}"]
+    button.submit-feedback[data-appt-id="#{@appt.id}"] Leave Feedback  
+
+= javascript_include_tag "appointments/feedback", type: :module

@@ -23,7 +23,7 @@ Rails.application.routes.draw do
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
 
   # Defines the root path route ("/")
-  root "doctors#index"
+  root "doctors#index", defaults: {tab: "root"} 
   get '/test', to: "tests#test"
   get '/navbar', to: "tests#navbar"
   get '/dashboard', to: "welcome#dashboard"
@@ -46,7 +46,11 @@ Rails.application.routes.draw do
     end
   end
   
-  resources :appointments, only: %i[index]
+  resources :appointments, only: %i[index] do
+    collection do
+      get ':appt_code/feedback', to: 'appointments#feedback', as: :appt_feedback
+    end
+  end
   
   resources :specializations, only: %i[index] do
     member do

@@ -147,7 +147,8 @@ nav.nav-bar {
   margin: 0;
   display: flex;
   justify-content: space-between;
-  background-color: #d7d7d7;
+  // background-color: #d7d7d7;
+  background-color: black;
 
   .nav-partitions {
     display: flex;
@@ -155,7 +156,9 @@ nav.nav-bar {
     margin-right: 5%;
 
     .nav-item {
-      background:  #d7d7d7;
+      // background:  #d7d7d7;
+      background-color: black;
+      color: white;
       // padding: 10px;
 
       // &:hover {
@@ -295,6 +298,9 @@ nav.nav-bar {
   
 }
 
+.active-nav-tab {
+  background-color: #afafaf !important;
+}
 
 // .hide {
 //   display: none;

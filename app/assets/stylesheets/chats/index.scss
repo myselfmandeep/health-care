@@ -87,7 +87,7 @@
   
   .users-listing {
     // width: 20%;
-    height: 90%;
+    height: 100%;
     width: 25%;
     overflow: scroll;
     // background-color: red;
@@ -95,6 +95,7 @@
     // flex-direction: column;
     // align-items: center;
     // // background-color: red;
+    background: black;
     
     &::-webkit-scrollbar {
       display: none;
@@ -111,11 +112,15 @@
       background: black;
       border-radius: 5px;
       color: white;
+      background: #979797;
+      border-radius: 5px;
+      color: black;
 
       &:hover {
         // background-color: yellow;
         // background-color: #c78484;
         background: #2a2a2a;
+        color: white;
       }
 
       .user-list-user-detail {
@@ -133,19 +138,22 @@
     }
 
     .new-chat-btn {
-      background-color: #c3c3c3;
+      background-color: white;
       color: black;
       
       &:hover {
-        background-color: #c3c3c3;
+        background-color: white;
+        color: black;
       }
     }
     
     .active-chat {
-      background-color: red;
+      // background-color: red;
+      background: #2a2a2a;
+      color: white;
       
       &:hover {
-        background-color: red;
+        // background-color: red;
       }
     }
 
