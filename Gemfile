@@ -80,3 +80,6 @@ gem 'faraday', '~> 2.9'
 gem 'sidekiq', '~> 7.1', '>= 7.1.2'
 gem 'sidekiq-scheduler'
 gem "font-awesome-sass"
+gem 'omniauth'
+gem 'omniauth-google-oauth2'
+gem 'omniauth-rails_csrf_protection'

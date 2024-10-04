@@ -32,8 +32,8 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true
   validates :full_name, length: { minimum: 3, maximum: 25 }
   validates :contact, length: { is: 10 }, format: { with: /\A\d+\z/, message: "must be a number" }, if: -> { contact.present? }
-  validates :gender, presence: { message: "is required" }
-  validates :date_of_birth, presence: true, comparison: {less_than: Date.tomorrow, message: "can't be greater than today", if: -> { date_of_birth.present? }}
+  validates :gender, presence: { message: "is required" }, unless: :reset_password_period_valid?
+  validates :date_of_birth, comparison: {less_than: Date.tomorrow, message: "can't be greater than today"}, if: -> { date_of_birth.present? && !reset_password_period_valid?}
   validates :username, length: {minimum: 3, maximum: 25}, if: -> { username.present? }
   validates :password, 
                        format: { 

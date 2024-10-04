@@ -13,7 +13,7 @@ class HospitalsController < ApplicationController
       hosps = Hospital
     end
     
-    @hospitals = hosps.order(:name).paginate(pagination(20))
+    @hospitals = hosps.order(:name).paginate(will_paginate)
   end
 
   def departments
