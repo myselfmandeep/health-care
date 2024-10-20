@@ -6,7 +6,7 @@ class User < ApplicationRecord
   
   # ===== ENUMS =====
   enum state: { active: 0, suspended: 1, removed: 2 }
-  enum role:  [:patient, :doctor, :admin, :super_admin]
+  enum role:  [:patient, :doctor, :admin, :super_admin, :support]
   enum gender: { male: 0, female: 1, other: 2 }
   
   # ===== CONSTANTS =====
@@ -24,13 +24,15 @@ class User < ApplicationRecord
   # has_many :messages, class_name: "Message", foreign_key: "sender_id"
   has_many :chats, through: :chat_participants
   has_many :doc_feedbacks, through: :doctor_appointments, source: :feedbacks
+  has_one :recipient, class_name: "Invitation", foreign_key: :recipient_id, dependent: :nullify
+  has_many :referrers, class_name: "Invitation", foreign_key: :referrer_id, dependent: :nullify
   
   accepts_nested_attributes_for :doctor_profile
 
   # ===== VALIDATIONS =====
   # validates :email, presence: true, uniqueness: true, format: { with: /\A[a-zA-Z0-9][a-zA-Z0-9._%+-]*@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}\z/ }
   validates :email, presence: true, uniqueness: true
-  validates :full_name, length: { minimum: 3, maximum: 25 }
+  validates :full_name, length: { minimum: 3, maximum: 25 }, unless: :reset_password_period_valid?
   validates :contact, length: { is: 10 }, format: { with: /\A\d+\z/, message: "must be a number" }, if: -> { contact.present? }
   validates :gender, presence: { message: "is required" }, unless: :reset_password_period_valid?
   validates :date_of_birth, comparison: {less_than: Date.tomorrow, message: "can't be greater than today"}, if: -> { date_of_birth.present? && !reset_password_period_valid?}
@@ -78,6 +80,8 @@ class User < ApplicationRecord
       patient_appointments
     when "doctor"
       doctor_appointments
+    when "support"
+      Appointment.none
     else
       []
     end
@@ -106,6 +110,16 @@ class User < ApplicationRecord
       return false unless vote
       
       vote.like? ? "liked" : "disliked"
+    end
+
+    def create_user_without_validation(**opts)
+      user = User.new(**opts)
+      
+      if user.save(validate: false)
+        [user, nil]
+      end
+    rescue ActiveRecord::RecordNotUnique 
+      [false, "Email already has been taken"]
     end
 
     # def downvote_for(resource, user=nil)

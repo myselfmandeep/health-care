@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_03_083228) do
+ActiveRecord::Schema[7.2].define(version: 2024_10_04_081707) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -104,6 +104,20 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_03_083228) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "invitations", force: :cascade do |t|
+    t.string "email"
+    t.datetime "valid_till"
+    t.integer "status", default: 0
+    t.string "invite_code"
+    t.integer "invitee_role"
+    t.bigint "recipient_id"
+    t.bigint "referrer_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["recipient_id"], name: "index_invitations_on_recipient_id"
+    t.index ["referrer_id"], name: "index_invitations_on_referrer_id"
+  end
+
   create_table "messages", force: :cascade do |t|
     t.bigint "sender_id"
     t.text "body"
@@ -165,6 +179,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_03_083228) do
   add_foreign_key "departments", "users", column: "head_of_department_id"
   add_foreign_key "doctor_profiles", "users", column: "doctor_id"
   add_foreign_key "feedbacks", "feedbacks", column: "parent_feedback_id"
+  add_foreign_key "invitations", "users", column: "recipient_id"
+  add_foreign_key "invitations", "users", column: "referrer_id"
   add_foreign_key "messages", "chat_participants", column: "sender_id"
   add_foreign_key "notifications", "users"
 end

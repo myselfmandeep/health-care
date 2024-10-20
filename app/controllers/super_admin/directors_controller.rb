@@ -24,5 +24,8 @@ module SuperAdmin
       end
     end
     
+    def invitations
+    end
+    
   end
 end

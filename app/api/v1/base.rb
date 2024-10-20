@@ -26,5 +26,11 @@ module V1
       # User.find(1000000000)
     end
 
+    get '/hello_world' do
+      # Invitation.all
+      # User.first
+      params
+    end
+
   end
 end

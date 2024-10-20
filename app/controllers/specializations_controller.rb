@@ -1,5 +1,6 @@
 class SpecializationsController < ApplicationController
   include DoctorCount
+  set_user_access :is_support_user?
 
   def index
     mark_active_tab("specializations") 

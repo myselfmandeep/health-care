@@ -1,5 +1,7 @@
 class ChatsController < ApplicationController
   before_action :authenticate_user!
+  set_user_access :is_support_user?, except: %i[index]
+  # skip_before_action :is_support_user?, only: %i[index]
 
   def index
     user_chats = Chat.joins(:chat_participants).where(chat_participants: {participant_id: current_id}).ids

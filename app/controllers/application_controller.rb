@@ -1,10 +1,13 @@
 class ApplicationController < ActionController::Base
   include ErrorHandlers
+  include AccessControl
+  include CustomHelperMethods
   # Only allow modern browsers supporting webp images, web push, badges, import maps, CSS nesting, and CSS :has.
   allow_browser versions: :modern
 
   before_action :notifications, :check_non_active_user
   before_action :configure_permitted_parameters, if: :devise_controller?
+  helper_method :fetch_hosps, :fetch_specs
 
   def notifications
     return unless current_user.present?
@@ -65,5 +68,11 @@ class ApplicationController < ActionController::Base
   def mark_active_tab(tab)
     params[:tab] = tab
   end
+
+  # def is_support_user?
+  #   if current_user.try(:support?)
+  #     redirect_to chats_path
+  #   end
+  # end
 
 end

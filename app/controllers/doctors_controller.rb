@@ -1,5 +1,6 @@
 class DoctorsController < ApplicationController
   include ListAppointments
+  set_user_access :is_support_user?
 
   before_action :get_doctor, only: %i[book_appointment dashboard]
   before_action :get_dr_profile, only: %i[edit update]

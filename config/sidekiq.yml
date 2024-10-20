@@ -1,6 +1,15 @@
 scheduler:
   schedule:
     cancel_appointment_job:
-      cron: "0 0 * * *"
+      cron: "0 0 * * * Asia/Kolkata"
       class: "CancelAppointmentJob"
       queue: default
+    expired_invitations_job:
+      cron: "0 */2 * * * Asia/Kolkata"
+      class: "ExpiredInvitationsJob"
+      queue: :default
+
+    # test_job:
+    #   cron: "0/1 * * * * Asia/Kolkata"
+    #   class: "TestJob"
+    #   queue: default

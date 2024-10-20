@@ -1,5 +1,6 @@
 class AppointmentsController < ApplicationController
   before_action :authenticate_user!
+  set_user_access :is_support_user?
 
   def index
     mark_active_tab("appts") 

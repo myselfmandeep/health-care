@@ -1,0 +1,17 @@
+/ h1 Invitations
+
+.invite-container
+  .invite-header 
+    h6.invite-heading Invitation
+  .invite-body 
+    .invite-inputs
+      input[type="text" class="invite-email" placeholder="recipient mail"]
+    / .invite-role 
+    /   select[name="role"]
+    /     option[value=""] Select Role
+    /     option[value="doctor"] Doctor
+    /     option[value="support"] Support
+    .invite-action
+      button.send-invite-btn Send Invite
+
+= javascript_include_tag "super_admin/directors/invitations", type: :module

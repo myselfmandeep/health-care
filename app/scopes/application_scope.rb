@@ -17,5 +17,9 @@ class ApplicationScope
   def doctor?
     user.doctor?
   end
+
+  def support?
+    user.support?
+  end
   
 end

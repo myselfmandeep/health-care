@@ -1,0 +1,62 @@
+.profile-m-container {
+  background: #f8f8f8;;
+  width: 45%;
+  margin: auto;
+  margin-top: auto;
+  margin-top: 12px;
+
+
+  .heading {
+    background: black;
+    color: white;
+    padding: 8px;
+
+    & > h1 {
+      font-size: 22px;
+      text-align: center;
+    }
+  }
+
+  .profile-form {
+    padding: 8px 16px;
+    width: 90%;
+    margin: auto;
+
+    form {
+      display: flex;
+      flex-direction: column;
+
+      input[type="radio"] {
+        padding: 4px;
+      }
+    }
+
+    .f-field {
+      margin: 4px 0;
+
+      .f-elm {
+        display: block;
+        width: 100%;
+        padding: 5px;
+      }
+
+      span.error > i {
+        color: red;
+        font-size: 12px;
+      }
+      
+    }
+
+    .f-field + .submit-field {
+      align-self: flex-end;
+
+      .profile-update-btn {
+        background-color: black;
+        color: white;
+        border: none;
+        padding: 8px;
+        border-radius: 5px;
+      }
+    }
+  }
+}

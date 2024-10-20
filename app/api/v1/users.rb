@@ -24,6 +24,18 @@ module V1
 
         present users, with: V1::Entities::Users
       end
+
+      desc "Invited users"
+      namespace "/invitation/:code" do
+        desc "Set password for invited user"
+        params do
+          # requires :password, type: String, desc: "Password"
+          # requires :password_confirmation, type: String, desc: "Password Confirmation", same_as: :password
+        end
+        post "/set_password" do
+          binding.pry
+        end
+      end
     end
   end
 end

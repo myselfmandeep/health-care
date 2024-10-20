@@ -1,0 +1,36 @@
+.invite-list-m-container
+  .new-invite-box
+    = link_to "Invite", invitations_su_director_path, class: "new-invite-a"
+
+  .invite-status-container 
+    = link_to "All", invitations_path, class: "invite-status"
+    - Invitation.statuses.keys.each do |status| 
+      = link_to "#{status.capitalize}", invitations_path(status: status), class: "invite-status"
+  
+  .invite-filters
+    input.search-invited-user[type="text" placeholder="Invited user mail"]
+    button.search-invited-user-btn Search
+  .invite-list-table-container 
+    .invitations-table
+      table 
+        thead 
+          tr 
+            th Email 
+            th Sent At 
+            th Since
+            th Status
+            / th Invite Code
+            th Refferer 
+        tbody 
+          - @invitations.each do |invite|
+            tr 
+              td = invite.email 
+              td = am_pm_notation(invite.created_at.in_time_zone("Asia/Kolkata")) 
+              td = since_time_v1(invite.created_at)
+              td = invite.status
+              / td = invite.invite_code
+              / td = invite.referrer.full_name
+              td = inv_referrer(invite.referrer)
+  = render partial: "shared/pagination", locals: {resource: @invitations}
+
+= javascript_include_tag "invitations/index", type: :module

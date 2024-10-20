@@ -5,8 +5,20 @@
 
 / .box
 
-<h1>CSS Animation</h1>
+/ <h1>CSS Animation</h1>
 
-.hello-world
+/ .hello-world
 
-<p><b>Note:</b> When an animation is finished, it goes back to its original style.</p>
+/ <p><b>Note:</b> When an animation is finished, it goes back to its original style.</p>
+/ =link_to "Accept", accept_invitations_path("b1a8aa5d800fcf9bd9d5765c026382d5940eca85", accepted: true)
+
+/ .invitation-mail 
+/   h1.heading You got an invite form HealthCare 
+/   .decision
+/     = link_to "Accept", root_path
+/     = link_to "Decline",root_path
+
+
+video#local-video[width="50" height="50"]
+
+= javascript_include_tag "tests/test", type: :module

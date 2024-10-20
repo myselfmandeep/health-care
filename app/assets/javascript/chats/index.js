@@ -66,15 +66,17 @@ const chatHTML = {
     parentElement.insertAdjacentHTML("afterbegin", modal);
   },
   userDetail: (user) => {
+    const role = user.role;
+    const userFullName = user.name || `${role}-user`
     return `
-      <div class="user-detail" data-user-name="${user.name}">
+      <div class="user-detail" data-user-name="${userFullName}">
         <p>
-          ${user.name}
+          ${userFullName}
           <i>
-            (${user.role})
+            (${role})
           </i>
         </p>
-        <button data-user-id="${user.id}" data-user-name="${user.name}" class="start-chat">Chat</button>
+        <button data-user-id="${user.id}" data-user-name="${userFullName}" class="start-chat">Chat</button>
       </div>
     `;
   },

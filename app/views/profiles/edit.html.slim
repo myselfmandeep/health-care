@@ -1,0 +1,36 @@
+/ = binding.pry
+.profile-m-container 
+  .heading 
+    h1 Complete Profile 
+  .profile-form 
+    = form_with model: @user, url: profile_path do |f|
+
+      .f-field 
+        = f.label :full_name, "Name", class: "f-elm"
+        = f.text_field :full_name, class: "f-elm"
+        = render partial: "profiles/errors", locals: {resource: @user, key: :full_name}
+        / span.error
+        /   i This is error
+      
+      .f-field 
+        = f.label :password, class: "f-elm"
+        = f.password_field :password, class: "f-elm"
+        = render partial: "profiles/errors", locals: {resource: @user, key: :password}
+
+      .f-field 
+        = f.label :password_confirmation, "Confim Password", class: "f-elm"
+        = f.password_field :password_confirmation, class: "f-elm"
+        = render partial: "profiles/errors", locals: {resource: @user, key: :password_confirmation}
+
+      .f-field 
+        = f.label :date_of_birth, "DOB", class: "f-elm"
+        = f.date_field :date_of_birth, class: "f-elm"
+        = render partial: "profiles/errors", locals: {resource: @user, key: :date_of_birth}
+
+      .f-field.genders 
+        = f.label :gender, class: "f-elm"
+        = f.collection_radio_buttons :gender, %w[male female other].collect { |g| [g, g] }, :last, :first, class: "f-elm"
+        = render partial: "profiles/errors", locals: {resource: @user, key: :gender}
+
+      .f-field.submit-field 
+        = f.submit "Update Profile",  class: "profile-update-btn"

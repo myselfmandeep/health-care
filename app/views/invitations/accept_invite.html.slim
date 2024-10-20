@@ -1,0 +1,16 @@
+h3 Set Password 
+
+/ = form_with scope: :password, url: "/api/v1/users/invitation/#{params[:code]}/set_password" do |f|
+= form_with scope: nil, url: password_invitations_path(code: params[:code]) do |f|
+  .f-field 
+    = f.label :password
+    = f.password_field :password, class: "pwd"
+
+  .f-field 
+    = f.label :password_confirmation
+    = f.password_field :password_confirmation, class: "pwd-confirm"
+
+  .f-field
+    = f.submit "Set Password", class: "set-pwd"
+
+= javascript_include_tag "invitations/accept_invite", type: :module

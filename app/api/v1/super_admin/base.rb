@@ -9,6 +9,7 @@ module V1
       mount Doctors
       mount Hospitals
       mount Users
+      mount Invitations
       
       get '/hello' do
       #  is_super_admin?

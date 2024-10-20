@@ -1,0 +1,4 @@
+- if resource.errors[key.to_sym]
+  span.error
+    - resource.errors.full_messages_for(key.to_sym).each do |error|
+      i = error 

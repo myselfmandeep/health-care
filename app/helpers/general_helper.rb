@@ -36,6 +36,10 @@ module GeneralHelper
     false
   end
 
+  def is_support_user?
+    current_user && current_user.try(:support?)
+  end
+
   def dr_image(df)
     df.doctor.female? ? "female-dr.jpeg" : "doctor.webp"
   end
@@ -93,5 +97,15 @@ module GeneralHelper
     
     result == "disliked" ? "fa-solid" : "fa-regular"
   end
+
+  # def get_error_field(resource, key)
+  #   @errors ||= resource.errors
+  #   field_errors = @errors[key.to_sym]
+
+  #   return unless @errors.present? || field_errors 
+    
+    
+  #   render partial: "profiles/errors", locals: {errors: field_errors, field}
+  # end
   
 end

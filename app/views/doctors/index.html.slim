@@ -5,13 +5,15 @@
       .col-8.d-flex.m-2
         select#hospital-name.form-control.m-2 style="display:#{current_user.try(:doctor?) ? "none" : "" }"
           option value="" Select Hospital
-          - Hospital.order(:name).each do |hospital|
+          / - Hospital.order(:name).each do |hospital|
+          - fetch_hosps.each do |hospital|
             option value="#{hospital.name}" selected=(params[:hospital] == hospital.name)
               = hospital.name
 
         select#specialization-name.form-control.m-2
           option value="" Select Specialization
-          - Specialization.order(:name).each do |specialization|
+          / - Specialization.order(:name).each do |specialization|
+          - fetch_specs.each do |specialization|
             option value="#{specialization.name}" = specialization.name
 
         input#search-doctor-name.form-control.m-2 placeholder="Search by doctor name"

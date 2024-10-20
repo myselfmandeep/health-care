@@ -1,5 +1,5 @@
 nav.nav-bar 
-  .nav-partitions 
+  .nav-partitions[style="#{is_support_user? ? "visibility:hidden;" : ""}"]
     .nav-item.home[class="#{active_nav_tab("root")}"]
       = link_to "Home", root_path, class: "nav-link"
     - unless current_user.try(:doctor?)
@@ -28,7 +28,7 @@ nav.nav-bar
             .parent-notification-container.my-modal 
               = render partial: "notifications/listing"
       .nav-item.nav-link.logged-in-type
-        = user_signed_in? ? "#{current_user.full_name.try(:capitalize)}" : "Log In"
+        = user_signed_in? ? "#{(current_user.full_name.present? && current_user.full_name.try(:capitalize) || "Profile")}" : "Log In"
         .profile-parent-modal 
           .profile-modal 
             .user-details

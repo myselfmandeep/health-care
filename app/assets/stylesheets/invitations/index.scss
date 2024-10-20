@@ -1,0 +1,116 @@
+.invite-list-m-container {
+  width: 80%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+
+  .new-invite-box {
+
+    & > a {
+      position: fixed;
+      background: black;
+      padding: 12px;
+      border-radius: 5px;
+      color: white;
+      text-decoration: none;
+      right: 5%;
+      bottom: 5%;
+    }
+  }
+
+  .invite-status-container {
+    display: flex;
+    padding: 12px;
+    /* border: 1px solid lightblue; */
+    margin-top: 12px;
+    width: 100%;
+    /* justify-content: space-around; */
+    gap: 18px;
+
+    .invite-status {
+      background: black;
+      color: white;
+      padding: 12px;
+      // margin: 12px 0;
+      border-radius: 4px;
+      text-decoration: none;
+
+      &:hover {
+        background: #363636;
+        cursor: pointer;
+      }
+
+    }
+  } 
+
+  .invite-filters {
+    // border: 1px solid;
+    width: 80%;
+    display: flex;
+    justify-content: right;
+    padding: 8px 12px;
+    align-items: center;
+    background: #f6f6f6;
+
+    input.search-invited-user {
+      margin-right: 10px;
+      padding: 6px;
+      
+    }
+    
+    button.search-invited-user-btn {
+      margin-left: 10px;
+      margin-left: 10px;
+      border: none;
+      background: black;
+      padding: 8px;
+      color: white;
+      border-radius: 4px;
+
+
+    }
+  }
+
+  .invite-list-table-container {
+    margin: 12px 0;
+    
+    .invitations-table {
+      table {
+        width: 80%;
+        background: #eaeaea;
+        border: 1px solid lightblue;
+
+        th, td {
+          padding: 8px;
+          border-bottom: 1px solid white;
+          text-align: justify;
+        }
+
+        th {
+          background: black;
+          color: white;
+        }
+
+        tr > td {
+          font-size: 14px;
+        }
+
+        tbody tr:nth-child(even) {
+          background: #fff4e0;
+        }
+      
+      tbody tr:nth-child(odd) {
+          background-color: white; /* White background for odd rows */
+        }
+      
+        
+      }
+    }
+  } 
+
+  .pagination-container {
+    justify-content: left;
+    margin: 0px;
+  }
+}
+  

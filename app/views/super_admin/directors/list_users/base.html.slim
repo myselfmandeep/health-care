@@ -41,7 +41,8 @@
               td = assign_NA(user.username)
               td = user.doctor? ? (link_to "#{user.role}", dashboard_doctor_path(user.doctor_profile), class: "a-2-btn") : (link_to "#{user.role}", patient_path(user), class: "a-2-btn")
               td = assign_NA(user.contact)
-              td = capitalize(user.gender[0])
+              / td = capitalize(user.gender[0])
+              td = try(:capitalize, user.try(:gender)).try(:first) || "N/A"
               td = user.date_of_birth
               = render partial: "/super_admin/directors/list_users/account_status", locals: {user: user}
               td = since_time_v1(user.created_at)
