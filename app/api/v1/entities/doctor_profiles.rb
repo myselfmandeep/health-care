@@ -1,7 +1,7 @@
 module V1
   module Entities
     class DoctorProfiles < Base
-      # expose :id, documentation: { type: "Integer", desc: "User ID" }, 
+      # expose :id, documentation: { type: "Integer", desc: "User ID" },
       #        proc: -> (profile, options) { profile.doctor.id }
       expose :id, documentation: { type: "Integer", desc: "Dr Profile ID" }
       expose :doctor_full_name, as: :doctor, documentation: { type: "String", desc: "Doctor's name" }

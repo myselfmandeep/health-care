@@ -9,14 +9,13 @@ class ApplicationRecord < ActiveRecord::Base
     @votes = resource.votes
 
     react = vote.destroyed? ? "removed" : vote.reaction
-    
+
     v_types = (@votes.group(:reaction).count).with_indifferent_access
-    
+
     {
       likes: (v_types[:like] || 0),
       dislikes: (v_types[:dislike] || 0),
       vote_casted: react
     }
   end
-  
 end

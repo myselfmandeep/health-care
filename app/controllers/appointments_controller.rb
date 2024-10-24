@@ -3,9 +3,9 @@ class AppointmentsController < ApplicationController
   set_user_access :is_support_user?
 
   def index
-    mark_active_tab("appts") 
+    mark_active_tab("appts")
   end
-  
+
   def feedback
     @appt = Appointment.includes(:doctor).find_by(appt_code: params[:appt_code])
     if @appt.nil?

@@ -1,5 +1,4 @@
 class NotificationChannel < ApplicationCable::Channel
-
   def subscribed
     stream_from(target)
   end
@@ -9,10 +8,10 @@ class NotificationChannel < ApplicationCable::Channel
   end
 
   def close_connection(data)
-    Broadcast.transmit(target, data.merge!({type: "user_sign_out"}))
+    Broadcast.transmit(target, data.merge!({ type: "user_sign_out" }))
     # binding.pry
   end
-  
+
   def receive(data)
   end
 
@@ -21,5 +20,4 @@ class NotificationChannel < ApplicationCable::Channel
   def target
     "notification_#{params[:user_id]}"
   end
-  
 end

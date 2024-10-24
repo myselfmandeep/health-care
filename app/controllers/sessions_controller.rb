@@ -7,16 +7,16 @@ class SessionsController < Devise::SessionsController
     params[:tab] = "sign_in"
     super
   end
-  
+
   def create
     self.resource = warden.authenticate!(auth_options)
-    
+
     if resource.nil?
       flash[:alert] = "Invalid login credentials"
       redirect_to new_user_session_path
       return
     end
-  
+
     if resource.active?
       set_flash_message!(:notice, :signed_in)
       sign_in(resource_name, resource)
@@ -27,10 +27,10 @@ class SessionsController < Devise::SessionsController
       render :new
     end
   end
-  
+
   def destroy
     id = current_user.try(:id)
-    Broadcast.transmit("notification_#{id}", {type: "user_sign_out"}) if id
+    Broadcast.transmit("notification_#{id}", { type: "user_sign_out" }) if id
     super
   end
 
@@ -45,9 +45,8 @@ class SessionsController < Devise::SessionsController
       root_path
     end
   end
-  
-  def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_in, keys: [:email, :password])
-  end
 
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_in, keys: [ :email, :password ])
+  end
 end

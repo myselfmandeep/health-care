@@ -1,5 +1,5 @@
 module V1
-  module Entities 
+  module Entities
     class Feedbacks < Base
       expose :id
       expose :body

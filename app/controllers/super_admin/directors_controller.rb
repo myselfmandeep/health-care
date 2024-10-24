@@ -13,7 +13,7 @@ module SuperAdmin
       params[:per_page] = params[:per_page] || 20
       case params[:role]
       when "doctor"
-        @users = DoctorProfile.includes(:doctor, {department: [:hospital, :specialization]}).paginate(will_paginate).order(created_at: :desc)
+        @users = DoctorProfile.includes(:doctor, { department: [ :hospital, :specialization ] }).paginate(will_paginate).order(created_at: :desc)
         render template: "super_admin/directors/list_users/doctors"
       when "patient"
         @users = User.includes(:patient_appointments).patient.order("role DESC, full_name ASC").paginate(will_paginate)
@@ -23,9 +23,8 @@ module SuperAdmin
         render template: "super_admin/directors/list_users/base"
       end
     end
-    
+
     def invitations
     end
-    
   end
 end

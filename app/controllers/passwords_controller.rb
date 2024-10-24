@@ -3,7 +3,7 @@ class PasswordsController < Devise::PasswordsController
 
   def create
     self.resource = resource_class.send_reset_password_instructions(sign_up_params)
-  
+
     if successfully_sent?(resource)
       flash[:notice] = "Password reset instructions sent to your email."
       redirect_to new_user_session_path
@@ -18,12 +18,11 @@ class PasswordsController < Devise::PasswordsController
     resource.errors.add(:base, "Unfortunately our system is unable to deliver mail to you. Please try again later!")
     render :new
   end
-  
+
 
   private
 
   def sign_up_params
     params.require(:user).permit(:email)
   end
-
 end

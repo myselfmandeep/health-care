@@ -1,4 +1,4 @@
-module DoctorCount 
+module DoctorCount
   extend ActiveSupport::Concern
 
   def hospital_dr_count
@@ -6,5 +6,4 @@ module DoctorCount
                               .group("departments.hospital_id")
                               .count
   end
-  
 end

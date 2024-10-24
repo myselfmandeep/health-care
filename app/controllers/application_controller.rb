@@ -17,20 +17,20 @@ class ApplicationController < ActionController::Base
   protected
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:full_name, :username, :gender, :date_of_birth])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [ :full_name, :username, :gender, :date_of_birth ])
   end
 
-  def pagination(per_page=50)
+  def pagination(per_page = 50)
     { page: params[:page], per_page: per_page }
   end
 
   def will_paginate
     {
       page: params[:page],
-      per_page: (params[:per_page] || ENV['PER_PAGE'])
+      per_page: (params[:per_page] || ENV["PER_PAGE"])
     }
   end
-  
+
   private
 
   def check_non_active_user
@@ -38,10 +38,10 @@ class ApplicationController < ActionController::Base
       flash[:notice] = "Your account has been marked #{current_user.state}"
       warden.logout(:user)
       redirect_to new_user_session_path
-    end 
+    end
   end
 
-  def current_id 
+  def current_id
     session.to_h
            .try(:dig, "warden.user.user.key")
            .try(:flatten)
@@ -50,7 +50,7 @@ class ApplicationController < ActionController::Base
 
   def check_super_admin?
     authenticate_user!
-    
+
     unless current_user.super_admin?
       flash[:notice] = "Super Admin Access required to to access this section"
       redirect_to root_path
@@ -74,5 +74,4 @@ class ApplicationController < ActionController::Base
   #     redirect_to chats_path
   #   end
   # end
-
 end

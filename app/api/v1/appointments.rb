@@ -1,13 +1,11 @@
 module V1
   class Appointments < Grape::API
-    
     desc "collection routes of appointments"
     resource :appointments do
-
       desc "list all doctor appointments"
       params do
         optional :order_by, type: String, values: %w[ASC DESC], default: "DESC", desc: "Sort order: ascending or descending"
-      end      
+      end
       get "/" do
         # appointments = Appointment.includes(:doctor, :patient).where("doctor_id = :id OR patient_id = :id", id: current_user.id);
         scope = AppointmentsScope.new(current_user)
@@ -39,16 +37,16 @@ module V1
           appointments = appointments.fulfilled
         when "upcoming"
           appointments = appointments.where("date > ? AND status = ?", Date.today, Appointment::STATUS[:confirmed])
-        else 
+        else
           appointments
         end
-        
+
         # appointments = appointments.order(created_at: :desc).paginate({
         appointments = appointments.order("created_at #{params[:order_by]}").paginate({
           page: params[:page],
           per_page: (params[:per_page] || 25)
         })
-        
+
         present(appointments, with: V1::Entities::Appointments)
       end
 
@@ -63,9 +61,9 @@ module V1
       post do
         appointment = current_user.patient_appointments.new(declared(params))
         error_response!("Please sign in as a patient to perform this action") unless current_user.patient?
-        
+
         if appointment.save
-          message = "#{appointment.patient_full_name} has requested a new appointment for #{appointment.date}, at #{appointment.timeslot}.";
+          message = "#{appointment.patient_full_name} has requested a new appointment for #{appointment.date}, at #{appointment.timeslot}."
           Notification.notify_user(message: message, user_id: params[:doctor_id], type: "new_appointment", doctor_id: params[:doctor_id])
           present(appointment, with: V1::Entities::Appointments)
         else
@@ -80,11 +78,11 @@ module V1
         before do
           @appointment = Appointment.find(params[:id])
         end
-        
+
         get "/" do
           present @appointment, with: V1::Entities::Appointments
         end
-        
+
         desc "update the status of appointment"
         params do
           requires :status, type: String, values: %w[confirmed rejected cancelled fulfilled], desc: "Appointment ID"
@@ -96,7 +94,7 @@ module V1
         end
         put "/change_status" do
           if @appointment.update(declared(params, include_missing: false))
-            status = @appointment.rejected?  ? "cancelled" : @appointment.status 
+            status = @appointment.rejected?  ? "cancelled" : @appointment.status
             message = "Your appointment scheduled for #{@appointment.date} at #{@appointment.timeslot} has been #{status}."
             broadcast_to = @appointment.patient == current_user ? @appointment.doctor_id : @appointment.patient_id
             Notification.notify_user(message: message, user_id: broadcast_to)
@@ -106,7 +104,6 @@ module V1
             error_response!(@appointment.full_error_messages, 422)
           end
         end
-
       end
     end
   end

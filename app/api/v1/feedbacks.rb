@@ -1,14 +1,12 @@
 module V1
   class Feedbacks < Grape::API
-
     resource :feedbacks do
-      
       desc "Get the list of feedbacks for particular appointment"
       params do
         requires :appointment_id, type: Integer, desc: "Appointment ID"
       end
       get "/" do
-        feedbacks = Feedback.includes(:appointment, :user).where(appointments: {id: params[:appointment_id]})
+        feedbacks = Feedback.includes(:appointment, :user).where(appointments: { id: params[:appointment_id] })
 
         present feedbacks, with: V1::Entities::Feedbacks
       end
@@ -30,7 +28,7 @@ module V1
           error_response!(feedback.full_error_messages)
         end
       end
-      
+
       namespace ":id" do
         before do
           @feedback = Feedback.find(params[:id])

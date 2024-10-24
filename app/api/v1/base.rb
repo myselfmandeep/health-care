@@ -2,10 +2,10 @@ module V1
   class Base < Grape::API
     include V1::Helpers::ExceptionsHandler
 
-    VERSION = 'v1'
-    
+    VERSION = "v1"
+
     helpers V1::Utils
-    
+
     mount V1::Hospitals
     mount V1::Departments
     mount V1::DoctorProfiles
@@ -21,16 +21,15 @@ module V1
 
     mount V1::SuperAdmin::Base
 
-    get '/home' do
+    get "/home" do
       # authenticate!
       # User.find(1000000000)
     end
 
-    get '/hello_world' do
+    get "/hello_world" do
       # Invitation.all
       # User.first
       params
     end
-
   end
 end

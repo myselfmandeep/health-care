@@ -11,14 +11,14 @@ gem "puma", ">= 5.0"
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
 gem "importmap-rails"
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
-gem "turbo-rails" 
+gem "turbo-rails"
 # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
 gem "stimulus-rails"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 # Use Redis adapter to run Action Cable in production
 gem "redis", ">= 4.0.1"
-gem 'redis-rails'
+gem "redis-rails"
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
@@ -52,11 +52,11 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
-  gem 'letter_opener'
-  gem 'grape-swagger'
+  gem "letter_opener"
+  gem "grape-swagger"
 
   # Highlight the fine-grained location where an error occurred [https://github.com/ruby/error_highlight]
-  gem "error_highlight", ">= 0.4.0", platforms: [:ruby]
+  gem "error_highlight", ">= 0.4.0", platforms: [ :ruby ]
 end
 
 group :test do
@@ -65,22 +65,22 @@ group :test do
   gem "selenium-webdriver"
 end
 
-gem 'grape'
-gem 'grape-route-helpers'
-gem 'grape-entity', '~> 1.0', '>= 1.0.1'
-gem 'dotenv-rails', '~> 2.1', '>= 2.1.1'
-gem 'devise', '~> 4.9', '>= 4.9.4'
-gem 'devise-jwt'
-gem 'jquery-rails'
-gem 'slim', '~> 3.0', '>= 3.0.6'
-gem 'bootstrap', '~> 5.2', '>= 5.2.3'
-gem 'sass-rails'
-gem 'will_paginate', '~> 4.0'
-gem 'jwt'
-gem 'faraday', '~> 2.9'
-gem 'sidekiq', '~> 7.1', '>= 7.1.2'
-gem 'sidekiq-scheduler'
+gem "grape"
+gem "grape-route-helpers"
+gem "grape-entity", "~> 1.0", ">= 1.0.1"
+gem "dotenv-rails", "~> 2.1", ">= 2.1.1"
+gem "devise", "~> 4.9", ">= 4.9.4"
+gem "devise-jwt"
+gem "jquery-rails"
+gem "slim", "~> 3.0", ">= 3.0.6"
+gem "bootstrap", "~> 5.2", ">= 5.2.3"
+gem "sass-rails"
+gem "will_paginate", "~> 4.0"
+gem "jwt"
+gem "faraday", "~> 2.9"
+gem "sidekiq", "~> 7.1", ">= 7.1.2"
+gem "sidekiq-scheduler"
 gem "font-awesome-sass"
-gem 'omniauth'
-gem 'omniauth-google-oauth2'
-gem 'omniauth-rails_csrf_protection'
+gem "omniauth"
+gem "omniauth-google-oauth2"
+gem "omniauth-rails_csrf_protection"

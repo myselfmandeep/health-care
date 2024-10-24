@@ -3,7 +3,7 @@ class SpecializationsController < ApplicationController
   set_user_access :is_support_user?
 
   def index
-    mark_active_tab("specializations") 
+    mark_active_tab("specializations")
     @hosp_count = Hospital.joins(:departments).group("departments.specialization_id").count
     @dr_count = DoctorProfile.joins(:department).group("departments.specialization_id").count
 
@@ -21,14 +21,14 @@ class SpecializationsController < ApplicationController
 
   def hospitals
     @dr_count = hospital_dr_count
-    @hospitals = Hospital.includes(:departments).where(departments: {specialization_id: params[:id]}).paginate(will_paginate)
+    @hospitals = Hospital.includes(:departments).where(departments: { specialization_id: params[:id] }).paginate(will_paginate)
 
     render template: "hospitals/index"
   end
-  
+
   def doctors
     doc_scope = DoctorsScope.new(current_user)
-    @doctors = doc_scope.list.where(specializations: {id: params[:id]})
+    @doctors = doc_scope.list.where(specializations: { id: params[:id] })
 
     render template: "hospitals/doctors"
   end
@@ -41,5 +41,4 @@ class SpecializationsController < ApplicationController
   def scope
     @scope ||= SpecializationsScope.new(current_user)
   end
-
 end

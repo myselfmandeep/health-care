@@ -17,7 +17,7 @@ class OmniauthController < ApplicationController
     end
 
     warden.set_user(user)
-    
+
     redirect_to root_path, notice: "Sign in successfully"
   rescue Exception => e
     redirect_to new_user_session_path, notice: "Something went wrong while signin. Please try again."
@@ -31,7 +31,6 @@ class OmniauthController < ApplicationController
   private
 
   def auth
-    @oauth ||= request.env['omniauth.auth']
+    @oauth ||= request.env["omniauth.auth"]
   end
-  
 end

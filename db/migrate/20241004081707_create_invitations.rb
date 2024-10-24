@@ -8,7 +8,7 @@ class CreateInvitations < ActiveRecord::Migration[7.2]
       t.integer :invitee_role
       t.references :recipient, null: true, foreign_key: { to_table: :users }
       t.references :referrer, null: false, foreign_key: { to_table: :users }
-      
+
       t.timestamps
     end
   end

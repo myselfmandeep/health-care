@@ -3,7 +3,7 @@ module ListAppointments
 
   def appointments
     @appointments = scope
-    
+
     case params[:status]
     when "requested"
       @appointments = @appointments.requested
@@ -17,25 +17,24 @@ module ListAppointments
     when "cancelled"
       @appointments = @appointments.cancelled
       render template: "doctors/appointments/cancelled"
-    else 
+    else
       render template: "doctors/appointments/base"
     end
   end
 
   private
-  
+
   def scope
-    preload = Appointment.includes([:patient, :doctor])
+    preload = Appointment.includes([ :patient, :doctor ])
                          .order(created_at: :desc)
                          .paginate(will_paginate)
 
     if current_user.patient?
       preload.where(patient_id: params[:id])
-    elsif current_user.doctor? 
+    elsif current_user.doctor?
       preload.where(doctor_id: params[:id])
     elsif current_user.super_admin?
       preload
     end
   end
-
 end

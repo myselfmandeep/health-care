@@ -8,13 +8,12 @@ module AccessControl
       end
     end
   end
-  
+
   private
-  
+
   def is_support_user?
     if current_user.try(:support?)
       redirect_to chats_path
     end
   end
-  
 end

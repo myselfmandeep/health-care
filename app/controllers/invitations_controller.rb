@@ -6,18 +6,18 @@ class InvitationsController < ApplicationController
     @invitations = Invitation.includes(:referrer)
     @invitations = @invitations.where("email ILIKE ?", "%#{params[:query]}%") if params[:query]
     @invitations = case params[:status]
-                    when "sent" then @invitations.sent  
-                    when "accepted" then @invitations.accepted  
-                    when "revoked" then @invitations.revoked  
-                    when "registered" then @invitations.registered  
-                    when "expired" then @invitations.expired 
-                    else
+    when "sent" then @invitations.sent
+    when "accepted" then @invitations.accepted
+    when "revoked" then @invitations.revoked
+    when "registered" then @invitations.registered
+    when "expired" then @invitations.expired
+    else
                       @invitations
-                    end
+    end
                     .order(created_at: :desc)
-                    .paginate(will_paginate)  
+                    .paginate(will_paginate)
   end
-  
+
   def accept_invite
     if params[:accepted] == "false" && @invitation.sent?
       @invitation.revoked!
@@ -33,9 +33,8 @@ class InvitationsController < ApplicationController
       else
         redirect_to root_path, notice: message
       end
-      
+
     end
-    
   end
 
   private
@@ -49,16 +48,16 @@ class InvitationsController < ApplicationController
 
     if current_user && current_user == invite.recipient
       redirect_to edit_profile_path
-      return 
+      return
     end
-    
+
     begin
       raise "Invalid Invitation code" unless invite
 
       raise "User has already sign up with this invitation" if invite.registered?
-      
+
       raise "Invitation has been expired" if invite.expired? || !invite.is_valid_invitation?
-      
+
       raise "Invitation has been revoked by the invitee" if invite.revoked?
 
       invite
@@ -66,5 +65,4 @@ class InvitationsController < ApplicationController
       redirect_to root_path, notice: e.message
     end
   end
-  
 end

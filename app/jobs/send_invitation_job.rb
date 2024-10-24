@@ -6,5 +6,4 @@ class SendInvitationJob < ApplicationJob
   def perform(invitation)
     InvitationMailer.support_invite(invitation).deliver_now
   end
-  
 end

@@ -1,8 +1,6 @@
 module V1
   class Hospitals < Grape::API
-    
     resource :hospitals do
-      
       desc "list all the hospitals"
       get do
         present Hospital.all, with: V1::Entities::Hospitals
@@ -21,20 +19,18 @@ module V1
         desc "member actions of hospitals"
         params do
           requires :id, type: Integer, desc: "Hospital ID"
-        end  
+        end
 
         desc "Fetch doctors of single department"
-        params do 
+        params do
           requires :specialization_id, type: Integer, desc: "Specializatin ID"
         end
         get "/get_doctors" do
-          doctors = DoctorProfile.includes(:department).where(departments: {specialization_id: params[:specialization_id], hospital_id: params[:id]})
+          doctors = DoctorProfile.includes(:department).where(departments: { specialization_id: params[:specialization_id], hospital_id: params[:id] })
 
           present doctors, with: V1::Entities::DoctorProfiles
         end
-        
       end
     end
-    
-  end  
+  end
 end

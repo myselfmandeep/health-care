@@ -1,5 +1,4 @@
 class ChatChannel < ApplicationCable::Channel
-
   def subscribed
     stream_from(unique_identifier)
   end
@@ -17,5 +16,4 @@ class ChatChannel < ApplicationCable::Channel
   def unique_identifier
     "chat_#{params[:chat_id]}"
   end
-  
 end

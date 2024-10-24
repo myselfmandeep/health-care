@@ -1,4 +1,4 @@
-module ErrorHandlers 
+module ErrorHandlers
   extend ActiveSupport::Concern
 
   included do
@@ -8,5 +8,4 @@ module ErrorHandlers
   def not_found
     render template: "errors/not_found"
   end
-  
 end

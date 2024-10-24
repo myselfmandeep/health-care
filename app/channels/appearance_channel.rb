@@ -1,5 +1,4 @@
 class AppearanceChannel < ApplicationCable::Channel
-
   def subscribed
     stream_from(unique_identifier)
   end
@@ -12,7 +11,7 @@ class AppearanceChannel < ApplicationCable::Channel
     # binding.pry
     users_appearance = {}
     data["users"].each do |u_id|
-      if Broadcast.transmit("notification_#{u_id}", {type: "ping"}) == 1
+      if Broadcast.transmit("notification_#{u_id}", { type: "ping" }) == 1
         users_appearance[u_id] = true
       else
         users_appearance[u_id] = false
@@ -28,5 +27,4 @@ class AppearanceChannel < ApplicationCable::Channel
   def unique_identifier
     "appearance_#{params[:user_id]}"
   end
-  
 end

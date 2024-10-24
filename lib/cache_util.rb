@@ -1,6 +1,5 @@
 module CacheUtil
   class << self
-    
     def fetch_data(key)
       return nil unless data_exists?(key)
 
@@ -10,7 +9,7 @@ module CacheUtil
     def data_exists?(key)
       Rails.cache.exist?(key)
     end
-    
+
     def get_data(key)
       Rails.cache.read(key)
     end
@@ -21,7 +20,7 @@ module CacheUtil
 
       data
     end
-    
+
     def remove_data(key)
       Rails.cache.delete(key)
     end

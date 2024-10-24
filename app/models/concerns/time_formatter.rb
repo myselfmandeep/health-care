@@ -5,7 +5,7 @@ module TimeFormatter
     def am_pm_to_iso(am_pm_notation_format)
       Time.parse(am_pm_notation_format)
     end
-    
+
     def iso_to_am_pm(timestamp)
       timestamp.strftime("%I:%M %p")
     end
@@ -29,6 +29,5 @@ module TimeFormatter
     def am_pm_to_unix(am_pm_notation)
       iso_to_unix(am_pm_to_iso(am_pm_notation))
     end
-
   end
 end

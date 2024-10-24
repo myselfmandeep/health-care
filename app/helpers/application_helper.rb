@@ -1,6 +1,5 @@
 module ApplicationHelper
-
-  def table_row_color(appointment) 
+  def table_row_color(appointment)
     if appointment.rejected?
       "table-danger"
     elsif appointment.confirmed?
@@ -11,5 +10,4 @@ module ApplicationHelper
       "table-secondary"
     end
   end
-
 end

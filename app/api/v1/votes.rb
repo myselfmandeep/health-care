@@ -1,6 +1,5 @@
 module V1
   class Votes < Grape::API
-
     helpers do
       def cast_vote
         @vote = @votes.new(declared(params, include_missing: false))
@@ -8,9 +7,9 @@ module V1
         @vote
       end
     end
-    
+
     namespace :votes do
-      params do 
+      params do
         requires :id, as: :voteable_id, type: Integer, desc: "Resource ID"
         requires :user_id, type: Integer, desc: "User ID"
       end
@@ -19,13 +18,12 @@ module V1
         @votes = @resource.votes
         @vote = @resource.votes.find_by(user_id: params[:user_id])
       end
-      
+
       desc "Vote for resource #{configuration[:resource]}"
       params do
         requires :reaction, type: String, values: %w[like], desc: "Is Liked"
       end
       post "/upvote" do
-
         if @vote.nil?
           cast_vote
         elsif @vote.dislike? || @vote.neutral?
@@ -33,7 +31,7 @@ module V1
         elsif @vote.like?
           @vote.neutral!
         end
-      
+
         present @vote, with: V1::Entities::Votes
       end
 

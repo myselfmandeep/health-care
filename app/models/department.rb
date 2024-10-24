@@ -1,5 +1,4 @@
 class Department < ApplicationRecord
-
   has_many :doctor_profiles
   belongs_to :hospital
   belongs_to :specialization
@@ -7,7 +6,6 @@ class Department < ApplicationRecord
 
   delegate :name, to: :specialization, prefix: true
   delegate :name, to: :hospital, prefix: true
-  
-  validates :specialization, uniqueness: { scope: :hospital, message: "already has been added to this hospital" }
 
+  validates :specialization, uniqueness: { scope: :hospital, message: "already has been added to this hospital" }
 end

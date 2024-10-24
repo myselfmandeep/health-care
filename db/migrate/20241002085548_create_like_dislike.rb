@@ -9,6 +9,6 @@ class CreateLikeDislike < ActiveRecord::Migration[7.2]
       t.timestamps
     end
 
-    add_index :votes, [:voteable_id, :voteable_type]
+    add_index :votes, [ :voteable_id, :voteable_type ]
   end
 end

@@ -1,7 +1,6 @@
 class ApplicationScope
-
   attr_reader :user
-  
+
   def initialize(current_user)
     @user = current_user
   end
@@ -21,5 +20,4 @@ class ApplicationScope
   def support?
     user.support?
   end
-  
 end

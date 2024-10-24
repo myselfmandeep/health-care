@@ -3,7 +3,7 @@ class ProfilesController < ApplicationController
 
   def edit
   end
-  
+
   def update
     if @user.update(profile_params)
       sign_in(current_user, bypass: true)
@@ -23,5 +23,4 @@ class ProfilesController < ApplicationController
   def set_user
     @user = current_user
   end
-  
 end

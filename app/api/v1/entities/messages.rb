@@ -12,7 +12,7 @@ module V1
 
       expose :body
       expose :sent_at do |msg, _options|
-        msg.created_at.in_time_zone('Asia/Kolkata').strftime("%d-%m-%y %I:%M %p")
+        msg.created_at.in_time_zone("Asia/Kolkata").strftime("%d-%m-%y %I:%M %p")
       end
     end
   end

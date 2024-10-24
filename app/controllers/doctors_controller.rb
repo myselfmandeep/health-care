@@ -7,9 +7,9 @@ class DoctorsController < ApplicationController
 
   def index
     @doctors =  doctor_scope.list
-      
+
     hospital, specialization = params[:hospital], params[:specialization]
-    
+
     if hospital.present? && specialization.present?
       @doctors = @doctors.where("hospitals.name = ? AND specializations.name = ?", hospital, specialization)
     elsif hospital.present?
@@ -20,17 +20,15 @@ class DoctorsController < ApplicationController
 
     @doctors = @doctors.order(updated_at: :desc).paginate(will_paginate)
   end
-  
+
   def availability
-    
   end
 
   def show
-    @doctor = DoctorProfile.includes(:doctor, department: :specialization).find_by(doctor: {id: params[:id]})
+    @doctor = DoctorProfile.includes(:doctor, department: :specialization).find_by(doctor: { id: params[:id] })
   end
 
   def edit
-    
   end
 
   def update
@@ -64,22 +62,21 @@ class DoctorsController < ApplicationController
   def get_dr_profile
     @dr_profile = DoctorProfile.find(params[:id])
   end
-  
+
   def dr_params
     params.require(:dr).permit(:start_at, :end_at, :slot_duration, :experience_time, :highest_qualification)
   end
-  
+
   def get_doctor
     @doctor = DoctorProfile.includes(:doctor).find(params[:id])
   end
 
   def eager_load_doctors
-    DoctorProfile.eager_load(:doctor,  { department: [:hospital, :specialization] })
-                            .where.not(users: {state: [:suspended, :removed]})
+    DoctorProfile.eager_load(:doctor,  { department: [ :hospital, :specialization ] })
+                            .where.not(users: { state: [ :suspended, :removed ] })
   end
 
   def doctor_scope
     @doc ||= DoctorsScope.new(current_user)
   end
-  
 end

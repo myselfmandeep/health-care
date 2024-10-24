@@ -1,7 +1,6 @@
 module V1
   module SuperAdmin
     class Invitations < Grape::API
-
       resource :invitations do
         before do
           @referrer = current_user
@@ -21,14 +20,13 @@ module V1
             #   InvitationMailer.support_invite(invite).deliver_now
             #   status 201
             # rescue => e
-              # error_response!(e.message)
+            # error_response!(e.message)
             # end
             status 201
           else
             error_response!(invite.errors.full_messages, 422)
           end
         end
-        
       end
     end
   end

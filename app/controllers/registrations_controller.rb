@@ -7,7 +7,7 @@ class RegistrationsController < Devise::RegistrationsController
     params[:tab] = "sign_up"
     super
   end
-  
+
   def create
     user = build_resource(sign_up_params)
 
@@ -20,7 +20,6 @@ class RegistrationsController < Devise::RegistrationsController
       # render json: { errors: user.errors.full_messages }, status: 422
       render :new
     end
-    
   end
 
   protected
@@ -34,7 +33,7 @@ class RegistrationsController < Devise::RegistrationsController
       new_user_session_path
     end
   end
-  
+
   private
 
   def sign_up_params
@@ -44,5 +43,4 @@ class RegistrationsController < Devise::RegistrationsController
   def account_update_params
     sign_up_params
   end
-
 end

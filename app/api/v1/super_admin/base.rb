@@ -1,7 +1,6 @@
 module V1
   module SuperAdmin
     class Base < Grape::API
-      
       before do
         is_super_admin?
       end
@@ -10,11 +9,10 @@ module V1
       mount Hospitals
       mount Users
       mount Invitations
-      
-      get '/hello' do
-      #  is_super_admin?
+
+      get "/hello" do
+        #  is_super_admin?
       end
-      
     end
   end
 end
