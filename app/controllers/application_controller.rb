@@ -76,7 +76,7 @@ class ApplicationController < ActionController::Base
   # end
   def load_doctor_profiles
     sql = <<~SQL
-      doctor_profiles.* \n
+      doctor_profiles.*, \n
       users.full_name as doctor_name, \n
       users.date_of_birth as dob, \n
       users.gender as gender, \n

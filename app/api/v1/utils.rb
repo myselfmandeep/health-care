@@ -1,6 +1,6 @@
 module V1
   module Utils
-    extend Grape::API::Helpers
+      extend Grape::API::Helpers
 
     def authenticate!
       has_error, err_msg, user = JwtToken.auth_token(request)

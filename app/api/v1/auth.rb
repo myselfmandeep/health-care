@@ -2,10 +2,10 @@ module V1
   class Auth < Grape::API
     get "/get_authentication_token" do
       session = request.session
-      id =  session.to_h
-                   .try(:dig, "warden.user.user.key")
-                   .try(:flatten)
-                   .try(:first)
+      id = session.to_h
+                  .try(:dig, "warden.user.user.key")
+                  .try(:flatten)
+                  .try(:first)
       role = session[:role]
 
       error_response!("Login required") unless id
@@ -19,11 +19,10 @@ module V1
       optional :email, type: String, desc: "Email to check"
     end
     get "/is_taken_cred" do
-      if params[:username].present?
-        error!("Username is already taken", 409) if User.exists?(username: params[:username])
-      elsif params[:email].present?
-        error!("Email is already taken", 409) if User.exists?(email: params[:email])
-      end
+      validate_user = ->(key) { params[key] && User.send(:exists?, key => params[key]) }
+
+      error!("Username is already taken", 409) if validate_user.call(:username)
+      error!("Email is already taken", 409) if validate_user.call(:email)
 
       status 200
     end

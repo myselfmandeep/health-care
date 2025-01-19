@@ -11,10 +11,7 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.2].define(version: 2024_10_04_081707) do
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
-  create_table "appointments", force: :cascade do |t|
+  create_table "appointments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "doctor_id", null: false
     t.bigint "patient_id", null: false
     t.string "timeslot"
@@ -32,7 +29,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_04_081707) do
     t.index ["patient_id"], name: "index_appointments_on_patient_id"
   end
 
-  create_table "chat_clears", force: :cascade do |t|
+  create_table "chat_clears", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "chat_id"
     t.bigint "cleared_by_id"
     t.datetime "created_at", null: false
@@ -43,7 +40,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_04_081707) do
     t.index ["message_id"], name: "index_chat_clears_on_message_id"
   end
 
-  create_table "chat_participants", force: :cascade do |t|
+  create_table "chat_participants", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "chat_id"
     t.bigint "participant_id"
     t.datetime "created_at", null: false
@@ -52,7 +49,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_04_081707) do
     t.index ["participant_id"], name: "index_chat_participants_on_participant_id"
   end
 
-  create_table "chats", force: :cascade do |t|
+  create_table "chats", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "chat_type", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -60,7 +57,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_04_081707) do
     t.integer "state", default: 0
   end
 
-  create_table "departments", force: :cascade do |t|
+  create_table "departments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "hospital_id", null: false
     t.bigint "specialization_id", null: false
     t.bigint "head_of_department_id"
@@ -71,7 +68,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_04_081707) do
     t.index ["specialization_id"], name: "index_departments_on_specialization_id"
   end
 
-  create_table "doctor_profiles", force: :cascade do |t|
+  create_table "doctor_profiles", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "doctor_id", null: false
     t.bigint "department_id", null: false
     t.string "start_at"
@@ -86,7 +83,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_04_081707) do
     t.index ["doctor_id"], name: "index_doctor_profiles_on_doctor_id"
   end
 
-  create_table "feedbacks", force: :cascade do |t|
+  create_table "feedbacks", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.text "body"
     t.bigint "appointment_id"
     t.bigint "user_id"
@@ -98,13 +95,13 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_04_081707) do
     t.index ["user_id"], name: "index_feedbacks_on_user_id"
   end
 
-  create_table "hospitals", force: :cascade do |t|
+  create_table "hospitals", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "invitations", force: :cascade do |t|
+  create_table "invitations", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "email"
     t.datetime "valid_till"
     t.integer "status", default: 0
@@ -118,7 +115,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_04_081707) do
     t.index ["referrer_id"], name: "index_invitations_on_referrer_id"
   end
 
-  create_table "messages", force: :cascade do |t|
+  create_table "messages", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "sender_id"
     t.text "body"
     t.datetime "created_at", null: false
@@ -126,20 +123,20 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_04_081707) do
     t.index ["sender_id"], name: "index_messages_on_sender_id"
   end
 
-  create_table "notifications", force: :cascade do |t|
+  create_table "notifications", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "content"
     t.bigint "user_id"
     t.datetime "created_at"
     t.index ["user_id"], name: "index_notifications_on_user_id"
   end
 
-  create_table "specializations", force: :cascade do |t|
+  create_table "specializations", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -160,7 +157,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_04_081707) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  create_table "votes", force: :cascade do |t|
+  create_table "votes", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "voteable_id"
     t.string "voteable_type"
     t.integer "reaction", default: 0

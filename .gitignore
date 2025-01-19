@@ -38,4 +38,5 @@
 /.idea/misc.xml
 /.idea/modules.xml
 /.idea/vcs.xml
+/docker-compose.yml
 /.idea/.gitignore

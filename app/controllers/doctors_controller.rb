@@ -6,7 +6,6 @@ class DoctorsController < ApplicationController
   before_action :get_dr_profile, only: %i[edit update]
 
   def index
-    # @doctors =  doctor_scope.list
     docs = eager_load_doctors
 
     docs.tap { |q| q.where!("hospitals.name = ?", params[:hospital]) if params[:hospital].present? }
@@ -48,7 +47,7 @@ class DoctorsController < ApplicationController
   end
 
   def search
-    @doctors = eager_load_doctors.where("users.full_name ILIKE ?", "%#{params[:query]}%").paginate(pagination(20))
+    @doctors = eager_load_doctors.where("users.full_name LIKE ?", "%#{params[:query]}%").paginate(pagination(20))
     render template: "doctors/index"
   end
 

@@ -15,7 +15,7 @@ users = [
   { full_name: "Rajeev",      password: "John@123", email: "rajeev@gmail.com",  role: "doctor",      date_of_birth: "25-01-1997", gender: "male" },
   { full_name: "Somaya",      password: "John@123", email: "somaya@gmail.com",  role: "patient",     date_of_birth: "25-01-1997", gender: "female" },
   { full_name: "Shankar",     password: "John@123", email: "shankar@gmail.com", role: "patient",     date_of_birth: "25-01-1997", gender: "male" }
-].each { |user| User.create_or_find_by(user) }
+].each { |user| User.create(user) }
 
 # ADD SPECIALIZATIONS
 specializations = [
@@ -70,7 +70,7 @@ specializations = [
   { name: "Pain Management" },
   { name: "Gynecology" },
   { name: "Sleep Medicine" }
-].each { |specialization| Specialization.create_or_find_by(specialization) }
+].each { |specialization| Specialization.create(specialization) }
 
 # ADD HOSPITALS
 hospitals = [
@@ -110,14 +110,14 @@ hospitals = [
   { name: "KIMS Hospitals" },
   { name: "Yashoda Hospitals" },
   { name: "Bharti Hospital" }
-  ].each { |hospital| Hospital.create_or_find_by(hospital) }
+  ].each { |hospital| Hospital.create(hospital) }
 
 # ADDING DEPARTMENTS
 Hospital.all.each do |hospital|
   specializations = Specialization.ids
   specializations.each do |specialization|
     next if rand((1..100)).odd?
-    Department.create_or_find_by(hospital_id: hospital.id, specialization_id: specialization)
+    Department.create(hospital_id: hospital.id, specialization_id: specialization)
   end
 end
 
