@@ -7,7 +7,7 @@ class SpecializationsController < ApplicationController
     @hosp_count = Hospital.joins(:departments).group("departments.specialization_id").count
     @dr_count = DoctorProfile.joins(:department).group("departments.specialization_id").count
 
-    if current_user && current_user.doctor?
+    if current_user&.doctor?
       @dr_count = DoctorProfile.joins(:department).where("departments.hospital_id = ?", current_user.doctor_profile.department.hospital_id).group("departments.specialization_id").count
     end
     if params[:without_dr] == "false"

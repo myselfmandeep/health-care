@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
   protected
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [ :full_name, :username, :gender, :date_of_birth ])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:full_name, :username, :gender, :date_of_birth])
   end
 
   def pagination(per_page = 50)
@@ -74,4 +74,23 @@ class ApplicationController < ActionController::Base
   #     redirect_to chats_path
   #   end
   # end
+  def load_doctor_profiles
+    sql = <<~SQL
+      doctor_profiles.* \n
+      users.full_name as doctor_name, \n
+      users.date_of_birth as dob, \n
+      users.gender as gender, \n
+      specializations.name as spec_name, \n
+      hospitals.id as hospital_id, \n
+      hospitals.name as hospital_name #{"\n"}
+    SQL
+
+    DoctorProfile.joins(:doctor, { department: %i[hospital specialization] }).select(sql)
+  end
+
+  def set_layout(ar_records, template)
+    @users = ar_records.paginate(will_paginate)
+    render template: template
+  end
+
 end

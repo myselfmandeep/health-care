@@ -40,7 +40,7 @@ module GeneralHelper
   end
 
   def dr_image(df)
-    df.doctor.female? ? "female-dr.jpeg" : "doctor.webp"
+    df.gender == 'female' ? "female-dr.jpeg" : "doctor.webp"
   end
 
   def capitalize(word)

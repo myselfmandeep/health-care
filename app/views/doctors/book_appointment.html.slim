@@ -9,8 +9,8 @@
               .profile
                 = image_tag "#{dr_image(@doctor)}", alt: "doctor-profile-picture", class: "doc-profile-picture"
             .col-9 
-              p.doc-name = "#{@doctor.doctor_full_name} (#{@doctor.highest_qualification})"
-              p.doc-spec = "#{@doctor.department.specialization_name}"
+              p.doc-name = "#{@doctor.doctor_name} (#{@doctor.highest_qualification})"
+              p.doc-spec = "#{@doctor.spec_name}"
           label for="medical-symptoms" 
             | Symptoms
           textarea.form-control.mt-2.mb-3#medical-symptoms rows="3" placeholder="optional"
@@ -20,7 +20,7 @@
           label.form-label Date of appointment:
           .col-3 
             input#appointment-date.form-control type="date" value="#{Date.today}" 
-          .timeslots data-doctor-id="#{@doctor.doctor.id}" data-start-at="#{@doctor.start_at}" data-end-at="#{@doctor.end_at}" data-slot-duration="#{@doctor.slot_duration}" data-date="#{Date.today}"
+          .timeslots data-doctor-id="#{@doctor.doctor_id}" data-start-at="#{@doctor.start_at}" data-end-at="#{@doctor.end_at}" data-slot-duration="#{@doctor.slot_duration}" data-date="#{Date.today}"
 
 .book-appointment-container 
   

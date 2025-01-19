@@ -4,21 +4,14 @@ module ListAppointments
   def appointments
     @appointments = scope
 
+    template = ->(temp) { "doctors/appointments/#{temp}" }
+
     case params[:status]
-    when "requested"
-      @appointments = @appointments.requested
-      render template: "doctors/appointments/requested"
-    when "confirmed"
-      @appointments = @appointments.confirmed
-      render template: "doctors/appointments/confirmed"
-    when "rejected"
-      @appointments = @appointments.rejected
-      render template: "doctors/appointments/rejected"
-    when "cancelled"
-      @appointments = @appointments.cancelled
-      render template: "doctors/appointments/cancelled"
-    else
-      render template: "doctors/appointments/base"
+    when "requested" then set_layout(@appointments.requested, template["requested"])
+    when "confirmed" then set_layout(@appointments.confirmed, template["confirmed"])
+    when "rejected"  then set_layout(@appointments.rejected,  template["rejected"])
+    when "cancelled" then set_layout(@appointments.cancelled, template["cancelled"])
+    else set_layout(@appointments, template["base"])
     end
   end
 

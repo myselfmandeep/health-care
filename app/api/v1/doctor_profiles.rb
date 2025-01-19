@@ -24,10 +24,8 @@ module V1
         requires :date, type: String, allow_blank: false, desc: "Date to check"
       end
       get :check_availability do
-        statuses = Appointment.statuses
-        filter = { date: params[:date], doc: params[:doctor_id], rejected: statuses[:rejected], cancelled: statuses[:cancelled] }
-
-        Appointment.where("doctor_id = :doc AND date = :date AND status != :rejected AND status != :cancelled", filter).pluck(:timeslot)
+        Appointment.where('doctor_id = ? AND date = ? AND status NOT IN (2,3)', params[:doctor_id], params[:date])
+                   .pluck(:timeslot)
       end
 
       desc "member routes of doctors"

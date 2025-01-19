@@ -52,7 +52,7 @@
 
 /         / = link_to "Profile", dashboard_doctor_path(doctor), class: "doctor-card-btn chat-with-doctor"
 
-.col-9.doctor-card-row data-doctor-name="#{doctor.doctor_full_name}" data-doctor-specialization="#{doctor.department.specialization.name}" data-hospital="#{doctor.department.hospital.name}"
+.col-9.doctor-card-row data-doctor-name="#{doctor.doctor_name}" data-doctor-specialization="#{doctor.spec_name}" data-hospital="#{doctor.hospital_name}"
   .card.doctor-card.default-border
     .card-body
       .row
@@ -61,21 +61,21 @@
 
         .col-10 
           h5
-            = "Dr #{doctor.doctor_full_name} (#{doctor.highest_qualification})"
+            = "Dr #{doctor.doctor_name} (#{doctor.highest_qualification})"
           p[style="color:gray;font-size:14px"]
             span 
               b 
-            = doctor.doctor.gender
+            = doctor.gender
 
           .row.mb-2
             .col-6
               p
                 b Hospital: 
-                = link_to "#{doctor.department.hospital_name}", hospital_path(doctor.department.hospital_id), class: "nav-a-link"
+                = link_to "#{doctor.hospital_name}", hospital_path(doctor.hospital_id), class: "nav-a-link"
             .col-6
               p 
                 b Department: 
-                = doctor.department.specialization_name
+                = doctor.spec_name
 
           .row.mb-2
             .col-6
@@ -93,15 +93,15 @@
               | Timing: 
             = "#{doctor.start_at} - #{doctor.end_at}"
 
-          .action-btns 
+          .action-btns
             span  = link_to "Visit Profile", dashboard_doctor_path(doctor), class: "pf-visit-link a-2-btn"
             = link_to "Book An Appointment", book_appointment_doctor_path(doctor), class: "doctor-card-btn" unless current_user.try(:doctor?)
 
             - if user_signed_in?
               = link_to "Edit", edit_doctor_path(doctor), class: "doctor-card-btn" if is_super_admin?
 
-              - if current_user.super_admin? || (!current_user.doctor? && current_user.present? && current_user.appointments.exists?(doctor_id: doctor.doctor.id)) 
-                = link_to "Chat", chats_path, class: "doctor-card-btn chat-with-doctor", data: { doctor_id: doctor.doctor_id, doctor_name: doctor.doctor_full_name} 
+              - if current_user.super_admin? || (!current_user.doctor? && current_user.present? && current_user.appointments.exists?(doctor_id: doctor.doctor.id))
+                = link_to "Chat", chats_path, class: "doctor-card-btn chat-with-doctor", data: { doctor_id: doctor.doctor_id, doctor_name: doctor.doctor_name}
 
-            / = link_to "Profile", dashboard_doctor_path(doctor), class: "doctor-card-btn chat-with-doctor"
+            = link_to "Profile", dashboard_doctor_path(doctor), class: "doctor-card-btn chat-with-doctor"
 

@@ -34,3 +34,8 @@
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 /deleted
+/.idea/healthcare.iml
+/.idea/misc.xml
+/.idea/modules.xml
+/.idea/vcs.xml
+/.idea/.gitignore

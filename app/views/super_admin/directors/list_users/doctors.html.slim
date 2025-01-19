@@ -21,11 +21,11 @@
         tbody
           - @users.each do |doctor, index|
             tr 
-              td = doctor.doctor_full_name
-              td = doctor.doctor.gender
-              td = doctor.doctor.date_of_birth
-              td.overflow-control = doctor.department.hospital_name
-              td.overflow-control = doctor.department.specialization_name
+              td = doctor.doctor_name
+              td = doctor.gender
+              td = doctor.dob
+              td.overflow-control = doctor.hospital_name
+              td.overflow-control = doctor.spec_name
               td = doctor.start_at
               td = doctor.end_at
               td = "#{doctor.slot_duration} min"

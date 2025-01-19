@@ -1,4 +1,4 @@
-.container 
+.container
   .row.m-3
     .col-3
       input#hospital-search-field.form-control type="text" placeholder="Search hospital by name"
@@ -7,7 +7,7 @@
     .col-1
       #search-button.btn.btn.btn-primary Search
     = render partial: "shared/dropdown_filters", locals: {links: [["Hide Hospitals with 0 Drs", hospitals_path(without_dr: true)]]}
-  .row 
+  .row
     .col-8
       - if @hospitals.present?
         table.table
@@ -25,17 +25,17 @@
               tr data-hospital-name="#{hospital.name}"
                 td = "#{index+1}"
                 td = hospital.name
-                td 
+                td
                   = link_to "Get List", departments_hospital_path(hospital), class: "a-2-btn"
-                td 
+                td
                   = link_to doctor_count(@dr_count.try(:dig, hospital.id)), doctors_hospital_path(hospital), class: "a-2-btn min-width-50px"
-                td 
+                td
                   = link_to "See", hospital_path(hospital), class: "a-2-btn"
                 - if is_super_admin?
-                  td 
-                    = link_to "Edit", edit_hospital_path(hospital), class: "a-2-btn" 
+                  td
+                    = link_to "Edit", edit_hospital_path(hospital), class: "a-2-btn"
       / = will_paginate @hospitals
-      - else 
+      - else
         h4.no-doc-avail No Hospital Found
 = render partial: "shared/pagination", locals: { resource: @hospitals }
 

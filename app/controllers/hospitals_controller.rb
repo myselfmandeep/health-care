@@ -1,7 +1,7 @@
 class HospitalsController < ApplicationController
   include DoctorCount
 
-  before_action :get_hospital, only: %i[departments doctors show edit]
+  before_action :get_hospital, only: %i[departments show edit]
   before_action :hospital_dr_count, only: %i[index search]
   set_user_access :is_support_user?
 
@@ -42,7 +42,7 @@ class HospitalsController < ApplicationController
   end
 
   def doctors
-    @doctors = DoctorProfile.eager_load(:doctor, { department: [ :hospital, :specialization ] }).where(hospitals: { id: params[:id] })
+    @doctors = load_doctor_profiles.where('hospitals.id = ?', params[:id])
   end
 
   def add_hospital

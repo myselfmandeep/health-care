@@ -3,7 +3,7 @@
     .chat-user.new-chat-btn New Chat
     - @participants.each do |participant|
       .chat-user data-user-id="#{participant.participant_id}" data-chat-id="#{participant.chat_id}" 
-        = participant.participant_full_name  
+        = participant.participant_name
         em.user-online data-online-user-id="#{participant.participant_id}" = "(#{is_online(participant.participant_id)})"
     
   .chat-box-area 

@@ -6,19 +6,14 @@ class DoctorsController < ApplicationController
   before_action :get_dr_profile, only: %i[edit update]
 
   def index
-    @doctors =  doctor_scope.list
+    # @doctors =  doctor_scope.list
+    docs = eager_load_doctors
 
-    hospital, specialization = params[:hospital], params[:specialization]
+    docs.tap { |q| q.where!("hospitals.name = ?", params[:hospital]) if params[:hospital].present? }
+        .tap { |q| q.where!("specializations.name = ?", params[:specialization]) if params[:specialization].present? }
+        .tap { |q| q.order!(updated_at: :desc) }
 
-    if hospital.present? && specialization.present?
-      @doctors = @doctors.where("hospitals.name = ? AND specializations.name = ?", hospital, specialization)
-    elsif hospital.present?
-      @doctors = @doctors.where("hospitals.name = ?", hospital)
-    elsif specialization.present?
-      @doctors = @doctors.where("specializations.name = ?", specialization)
-    end
-
-    @doctors = @doctors.order(updated_at: :desc).paginate(will_paginate)
+    @doctors = docs.paginate(will_paginate)
   end
 
   def availability
@@ -68,12 +63,11 @@ class DoctorsController < ApplicationController
   end
 
   def get_doctor
-    @doctor = DoctorProfile.includes(:doctor).find(params[:id])
+    @doctor = eager_load_doctors.find(params[:id])
   end
 
   def eager_load_doctors
-    DoctorProfile.eager_load(:doctor,  { department: [ :hospital, :specialization ] })
-                            .where.not(users: { state: [ :suspended, :removed ] })
+    load_doctor_profiles.where("users.state = 0")
   end
 
   def doctor_scope

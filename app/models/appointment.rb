@@ -6,8 +6,8 @@ class Appointment < ApplicationRecord
   delegate :full_name, to: :doctor, prefix: true
   delegate :full_name, to: :patient, prefix: true
 
-  enum status: [ :requested, :confirmed, :rejected, :cancelled, :fulfilled ]
-  enum cancelled_by: [ :doctor, :patient ]
+  enum status: %i[requested confirmed rejected cancelled fulfilled]
+  enum cancelled_by: %i[doctor patient]
 
   STATUS = self.statuses.freeze
 
@@ -40,7 +40,7 @@ class Appointment < ApplicationRecord
 
   def is_taken_slot
     return if has_appointment_for_same_time_slot
-    appointments = Appointment.where("doctor_id = ? AND date = ? AND timeslot = ? AND status IN (?)", doctor_id, date, timeslot, [ STATUS[:requested], STATUS[:confirmed] ])
+    appointments = Appointment.where("doctor_id = ? AND date = ? AND timeslot = ? AND status IN (?)", doctor_id, date, timeslot, [STATUS[:requested], STATUS[:confirmed]])
 
     if appointments.present?
       errors.add(:base, "Slot is already booked by someone")
